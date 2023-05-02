@@ -26,10 +26,10 @@ public class ReservationMapper {
 
     public Reservation mapToReservation(ReservationDTO reservationDTO) {
         return new Reservation(
-                touristRepository.findById(reservationDTO.getReservationOwner()).get(),
-                reservationDTO.getCheckIn_date(),
-                reservationDTO.getCheckOut_date(),
-                reservationDTO.getAccomodationType()
+                touristRepository.findById(reservationDTO.reservationOwner()).get(),
+                reservationDTO.checkIn_date(),
+                reservationDTO.checkOut_date(),
+                reservationDTO.accomodationType()
         );
     }
 

@@ -2,13 +2,11 @@ package com.travel_agency.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "hotels")
 public class Hotel {
@@ -19,12 +17,12 @@ public class Hotel {
     @NotNull
     private String name;
 
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "destinationId")
     private Destination destination;
 
-    public Hotel(String name) {
+    public Hotel(String name,Destination destination) {
         this.name = name;
+        this.destination = destination;
     }
 }

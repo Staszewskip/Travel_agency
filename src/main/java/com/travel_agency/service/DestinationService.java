@@ -37,10 +37,10 @@ public class DestinationService {
     }
 
     public DestinationDTO modifyDestination(final DestinationDTO destinationDTO) throws DestinationNotFoundException {
-        Destination destination = destinationRepository.findById(destinationDTO.getDestinationId()).orElseThrow(DestinationNotFoundException::new);
-        destination.setCountry(destinationDTO.getCountry());
-        destination.setCity(destinationDTO.getCity());
-        destination.setCountry(destinationDTO.getPostcode());
+        Destination destination = destinationRepository.findById(destinationDTO.destinationId()).orElseThrow(DestinationNotFoundException::new);
+        destination.setCountry(destinationDTO.country());
+        destination.setCity(destinationDTO.city());
+        destination.setCountry(destinationDTO.postcode());
         destinationRepository.save(destination);
         return destinationMapper.mapToDestinationDTO(destination);
     }

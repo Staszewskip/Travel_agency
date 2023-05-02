@@ -1,6 +1,7 @@
 package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.TouristDTO;
+import com.travel_agency.domain.dto.TouristDTOGet;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.service.TouristService;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,13 @@ public class TouristController {
         return ResponseEntity.ok(touristService.modifyTourist(touristDTO));
     }
 
-    @GetMapping(value = {"touristId"})
-    public ResponseEntity<TouristDTO> getTourist(@PathVariable long touristId) throws TouristNotFoundException {
+    @GetMapping(value = "{touristId}")
+    public ResponseEntity<TouristDTOGet> getTourist(@PathVariable long touristId) throws TouristNotFoundException {
         return ResponseEntity.ok(touristService.findTourist(touristId));
     }
 
     @GetMapping
-    public ResponseEntity<List<TouristDTO>> getAllTourists() {
+    public ResponseEntity<List<TouristDTOGet>> getAllTourists() {
         return ResponseEntity.ok(touristService.findAllTourists());
     }
 

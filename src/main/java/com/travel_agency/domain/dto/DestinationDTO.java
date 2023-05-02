@@ -1,17 +1,5 @@
 package com.travel_agency.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public record DestinationDTO(Long destinationId,String country,String city,String postcode) {
 
-@Getter
-@AllArgsConstructor
-public class DestinationDTO {
-
-    private Long destinationId;
-
-    private String country;
-
-    private String city;
-
-    private String postcode;
 }

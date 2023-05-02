@@ -1,20 +1,6 @@
 package com.travel_agency.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.travel_agency.domain.Destination;
 
-@Getter
-
-public class HotelDTO {
-
-    private Long hotelId;
-
-    private String name;
-
-    private Long destinationId;
-
-    public HotelDTO(Long hotelId, String name) {
-        this.hotelId = hotelId;
-        this.name = name;
-    }
+public record HotelDTO(Long hotelId, String name, Destination destination) {
 }

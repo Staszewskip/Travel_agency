@@ -34,8 +34,8 @@ public class HotelService {
     }
 
     public HotelDTO modifyHotel(final HotelDTO hotelDTO) throws HotelNotFoundException{
-        Hotel hotel = hotelRepository.findById(hotelDTO.getHotelId()).orElseThrow(HotelNotFoundException::new);
-        hotel.setName(hotelDTO.getName());
+        Hotel hotel = hotelRepository.findById(hotelDTO.hotelId()).orElseThrow(HotelNotFoundException::new);
+        hotel.setName(hotelDTO.name());
         hotelRepository.save(hotel);
         return hotelMapper.mapToHotelDTO(hotel);
     }

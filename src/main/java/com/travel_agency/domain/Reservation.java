@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class Reservation {
     private Tourist reservationOwner;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "reservationList")
-    private List<Tourist> touristList = new ArrayList<>();
+    private List<TouristGuest> touristGuestsList = new ArrayList<>();
 
     @NotNull
     private LocalDate checkIn_date;
@@ -34,6 +36,24 @@ public class Reservation {
 
     @Enumerated(EnumType.ORDINAL)
     private AccomodationType accomodationType;
+
+    @Transient
+    private BigDecimal totalPrice;
+
+    private BigDecimal getTotalPrice() {
+        if (totalPrice == null) {
+            totalPrice = calculatePrice(checkIn_date, checkOut_date, touristGuestsList);
+        }
+        return totalPrice;
+    }
+
+    public BigDecimal calculatePrice(LocalDate checkIn_date, LocalDate checkOut_date, List<TouristGuest> touristGuestsList) {
+        int numberOfDays = Period.between(checkIn_date, checkOut_date).getDays();
+        int singleBedPrice = AccomodationType.HIGH_SEASON.getSingleBedPrice();
+
+        BigDecimal totalPrice = BigDecimal.valueOf(numberOfDays * (touristGuestsList.size() + 1) * singleBedPrice);
+        return totalPrice;
+    }
 
     public Reservation(Tourist reservationOwner, LocalDate checkIn_date, LocalDate checkOut_date, AccomodationType accomodationType) {
         this.reservationOwner = reservationOwner;

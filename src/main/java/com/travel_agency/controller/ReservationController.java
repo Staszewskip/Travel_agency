@@ -2,6 +2,7 @@ package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.ReservationDTO;
 import com.travel_agency.domain.dto.TouristDTO;
+import com.travel_agency.domain.dto.TouristGuestDTO;
 import com.travel_agency.exception.ReservationNotFoundException;
 import com.travel_agency.service.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,8 @@ public class ReservationController {
     }
 
     @PostMapping(value = {"reservationId"}, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addTouristToReservation(@PathVariable Long reservationId, @RequestBody TouristDTO touristDTO) throws ReservationNotFoundException  {
-        reservationService.addTouristsReservation(reservationId,touristDTO);
+    public ResponseEntity<Void> addTouristGuestToReservation(@PathVariable Long reservationId, @RequestBody TouristGuestDTO touristGuestDTO) throws ReservationNotFoundException {
+        reservationService.addTouristsReservation(reservationId, touristGuestDTO);
         return ResponseEntity.ok().build();
     }
 

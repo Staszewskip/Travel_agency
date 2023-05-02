@@ -1,15 +1,17 @@
 package com.travel_agency.domain;
 
+import lombok.Getter;
+
 import java.math.BigDecimal;
-
+@Getter
 public enum AccomodationType {
-    LOW_SEASON(new BigDecimal(100), new BigDecimal(150)),
-    HIGH_SEASON(new BigDecimal(100), new BigDecimal(150));
+    LOW_SEASON(100,150),
+    HIGH_SEASON(150,200);
 
-    private final BigDecimal singleBedPrice;
-    private final BigDecimal doubleBedPrice;
+    private final int singleBedPrice;
+    private final int doubleBedPrice;
 
-    AccomodationType(BigDecimal singleBedPrice, BigDecimal doubleBedPrice) {
+    AccomodationType(int singleBedPrice, int doubleBedPrice) {
         this.singleBedPrice = singleBedPrice;
         this.doubleBedPrice = doubleBedPrice;
     }

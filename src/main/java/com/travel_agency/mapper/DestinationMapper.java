@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 public class DestinationMapper {
     public Destination mapToDestination(DestinationDTO destinationDTO) {
         return new Destination(
-                destinationDTO.getCountry(),
-                destinationDTO.getCity(),
-                destinationDTO.getPostcode());
+                destinationDTO.country(),
+                destinationDTO.city(),
+                destinationDTO.postcode());
     }
     public DestinationDTO mapToDestinationDTO(Destination destination) {
         return new DestinationDTO(
