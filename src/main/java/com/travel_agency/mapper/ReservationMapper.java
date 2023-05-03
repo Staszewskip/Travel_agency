@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ReservationMapper {
-    private final TouristRepository touristRepository;
-
     public ReservationDTO mapToReservationDTO(Reservation reservation) {
         return new ReservationDTO(
                 reservation.getReservationId(),
@@ -21,15 +19,6 @@ public class ReservationMapper {
                 reservation.getCheckIn_date(),
                 reservation.getCheckOut_date(),
                 reservation.getAccomodationType()
-        );
-    }
-
-    public Reservation mapToReservation(ReservationDTO reservationDTO) {
-        return new Reservation(
-                touristRepository.findById(reservationDTO.reservationOwner()).get(),
-                reservationDTO.checkIn_date(),
-                reservationDTO.checkOut_date(),
-                reservationDTO.accomodationType()
         );
     }
 

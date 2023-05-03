@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -23,6 +26,9 @@ public class Destination {
 
     @NotNull
     private String postcode;
+
+    @OneToMany(targetEntity = Hotel.class, mappedBy = "destination", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Hotel> hotelList = new ArrayList<>();
 
     public Destination(String country, String city, String postcode) {
         this.country = country;

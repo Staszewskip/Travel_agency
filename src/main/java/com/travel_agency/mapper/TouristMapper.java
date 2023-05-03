@@ -3,7 +3,6 @@ package com.travel_agency.mapper;
 import com.travel_agency.domain.Tourist;
 import com.travel_agency.domain.dto.TouristDTO;
 import com.travel_agency.domain.dto.TouristDTOGet;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class TouristMapper {
-    ModelMapper modelMapper = new ModelMapper();
 
     public Tourist mapToTourist(TouristDTO touristDTO) {
         return new Tourist(

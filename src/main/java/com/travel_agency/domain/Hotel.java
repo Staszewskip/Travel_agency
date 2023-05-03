@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +20,15 @@ public class Hotel {
     @NotNull
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "destinationId")
     private Destination destination;
+
+    @OneToMany(targetEntity = Reservation.class,
+            mappedBy = "reservationId",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+   List<Reservation> reservationList = new ArrayList<>();
 
     public Hotel(String name,Destination destination) {
         this.name = name;

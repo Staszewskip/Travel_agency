@@ -29,6 +29,10 @@ public class Reservation {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "reservationList")
     private List<TouristGuest> touristGuestsList = new ArrayList<>();
 
+    @ManyToOne()
+    @JoinColumn(name = "hotelId")
+    private Hotel hotel;
+
     @NotNull
     private LocalDate checkIn_date;
 
@@ -55,7 +59,7 @@ public class Reservation {
         return totalPrice;
     }
 
-    public Reservation(Tourist reservationOwner, LocalDate checkIn_date, LocalDate checkOut_date, AccomodationType accomodationType) {
+    public Reservation(Tourist reservationOwner,LocalDate checkIn_date, LocalDate checkOut_date, AccomodationType accomodationType) {
         this.reservationOwner = reservationOwner;
         this.checkIn_date = checkIn_date;
         this.checkOut_date = checkOut_date;

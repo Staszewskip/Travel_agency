@@ -1,11 +1,8 @@
 package com.travel_agency.service;
 
 import com.travel_agency.domain.Destination;
-import com.travel_agency.domain.Tourist;
 import com.travel_agency.domain.dto.DestinationDTO;
-import com.travel_agency.domain.dto.TouristDTO;
 import com.travel_agency.exception.DestinationNotFoundException;
-import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.mapper.DestinationMapper;
 import com.travel_agency.repository.DestinationRepository;
 import jakarta.transaction.Transactional;

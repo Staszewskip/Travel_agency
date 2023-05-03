@@ -4,6 +4,7 @@ import com.travel_agency.domain.dto.ReservationDTO;
 import com.travel_agency.domain.dto.TouristDTO;
 import com.travel_agency.domain.dto.TouristGuestDTO;
 import com.travel_agency.exception.ReservationNotFoundException;
+import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -19,7 +20,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addReservation(@RequestBody ReservationDTO reservationDTO) {
+    public ResponseEntity<Void> addReservation(@RequestBody ReservationDTO reservationDTO) throws TouristNotFoundException {
         reservationService.saveReservation(reservationDTO);
         return ResponseEntity.ok().build();
     }
