@@ -12,6 +12,8 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(name = "Reservation.findByUser",
+            query = "FROM Reservation WHERE reservationOwner.firstname=:firstname AND reservationOwner.lastname=:lastname ")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -30,7 +32,7 @@ public class Reservation {
     private List<TouristGuest> touristGuestsList = new ArrayList<>();
 
     @ManyToOne()
-    @JoinColumn(name = "hotelId")
+    @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
     @NotNull
@@ -38,7 +40,7 @@ public class Reservation {
 
     private LocalDate checkOut_date;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated()
     private AccomodationType accomodationType;
 
     @Transient
@@ -53,14 +55,15 @@ public class Reservation {
 
     public BigDecimal calculatePrice(LocalDate checkIn_date, LocalDate checkOut_date, List<TouristGuest> touristGuestsList) {
         int numberOfDays = Period.between(checkIn_date, checkOut_date).getDays();
-        int singleBedPrice = AccomodationType.HIGH_SEASON.getSingleBedPrice();
+        int singleBedPrice = AccomodationType.INSTANCE.getSingleBedPrice();
 
         BigDecimal totalPrice = BigDecimal.valueOf(numberOfDays * (touristGuestsList.size() + 1) * singleBedPrice);
         return totalPrice;
     }
 
-    public Reservation(Tourist reservationOwner,LocalDate checkIn_date, LocalDate checkOut_date, AccomodationType accomodationType) {
+    public Reservation(Tourist reservationOwner,Hotel hotel, LocalDate checkIn_date, LocalDate checkOut_date, AccomodationType accomodationType) {
         this.reservationOwner = reservationOwner;
+        this.hotel = hotel;
         this.checkIn_date = checkIn_date;
         this.checkOut_date = checkOut_date;
         this.accomodationType = accomodationType;

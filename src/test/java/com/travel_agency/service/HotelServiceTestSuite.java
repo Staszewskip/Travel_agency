@@ -4,6 +4,7 @@ import com.travel_agency.domain.Destination;
 import com.travel_agency.domain.Hotel;
 import com.travel_agency.domain.dto.DestinationDTO;
 import com.travel_agency.domain.dto.HotelDTO;
+import com.travel_agency.domain.dto.get.HotelDTOGet;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.exception.HotelNotFoundException;
 import com.travel_agency.repository.DestinationRepository;
@@ -50,7 +51,22 @@ class HotelServiceTestSuite {
         hotelService.saveHotel(hotelDTO);
         hotelService.saveHotel(hotelDTO2);
         // When
-        List<HotelDTO> hotelDTOList = hotelService.findHotels();
+        List<HotelDTO> hotelDTOList = hotelService.showHotels();
+        // Then
+        assertEquals(2, hotelDTOList.size());
+        // Cleanup
+        hotelRepository.deleteAll();
+    }
+    @Test
+    void getHotels() throws DestinationNotFoundException {
+        Destination destination = new Destination("country", "city", "postcode");
+        Destination savedDestination = destinationRepository.save(destination);
+        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId());
+        HotelDTO hotelDTO2 = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId());
+        hotelService.saveHotel(hotelDTO);
+        hotelService.saveHotel(hotelDTO2);
+        // When
+        List<HotelDTOGet> hotelDTOList = hotelService.getHotels();
         // Then
         assertEquals(2, hotelDTOList.size());
         // Cleanup

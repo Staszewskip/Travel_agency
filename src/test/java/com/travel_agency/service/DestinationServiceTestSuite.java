@@ -2,6 +2,7 @@ package com.travel_agency.service;
 
 import com.travel_agency.domain.Destination;
 import com.travel_agency.domain.dto.DestinationDTO;
+import com.travel_agency.domain.dto.get.DestinationDTOGet;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.repository.DestinationRepository;
 import org.junit.jupiter.api.Test;
@@ -32,15 +33,16 @@ class DestinationServiceTestSuite {
         destinationRepository.deleteAll();
     }
 
+
     @Test
-    void findDestinations() {
+    void showDestinations() {
         // Given
         DestinationDTO destinationDTO = new DestinationDTO(1L, "country", "city", "postcode");
         DestinationDTO destinationDTO2 = new DestinationDTO(1L, "country", "city", "postcode");
         destinationService.saveDestination(destinationDTO);
         destinationService.saveDestination(destinationDTO2);
         // When
-        List<DestinationDTO> foundDestinationDTOList = destinationService.findDestinations();
+        List<DestinationDTO> foundDestinationDTOList = destinationService.showDestinations();
         // Then
         assertEquals(2, foundDestinationDTOList.size());
         // Cleanup

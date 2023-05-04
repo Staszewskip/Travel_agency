@@ -2,7 +2,6 @@ package com.travel_agency.controller;
 
 import com.google.gson.Gson;
 import com.travel_agency.domain.dto.TouristDTO;
-import com.travel_agency.domain.dto.TouristDTOGet;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.service.TouristService;
 import org.hamcrest.Matchers;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,28 +62,13 @@ class TouristControllerTestSuite {
     }
 
     @Test
-    void getTourist() throws Exception {
-        // Given
-        when(touristService.findTourist(1L)).thenReturn(new TouristDTOGet(1L, "firstname", "lastname", false));
-        // When & Then
-        mockMvc
-                .perform(MockMvcRequestBuilders
-                        .get("/v1/tourists/1")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().is(200))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.touristId", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname", Matchers.is("firstname")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.lastname", Matchers.is("lastname")));
-    }
-
-    @Test
     void getAllTourists() throws Exception {
         // Given
-        when(touristService.findAllTourists()).thenReturn(List.of());
+        when(touristService.showAllTourists()).thenReturn(List.of());
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/v1/tourists")
+                        .get("/v1/tourists/admin")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(0)));
@@ -102,19 +85,5 @@ class TouristControllerTestSuite {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is(200));
-    }
-
-    @Test
-    void shouldThrowException() throws Exception {
-        // Given
-        String exceptionParam = "dummy";
-        when(touristService.findTourist(10L)).thenThrow(TouristNotFoundException.class);
-        // When & Then
-        mockMvc
-                .perform(MockMvcRequestBuilders
-                        .get("/v1/tourists/10", exceptionParam)
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isBadRequest());
     }
 }

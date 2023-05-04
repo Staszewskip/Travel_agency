@@ -1,12 +1,18 @@
 package com.travel_agency.controller;
 
 import com.squareup.okhttp.Response;
+import com.travel_agency.domain.Quote;
 import com.travel_agency.domain.dto.DestinationDTO;
-import com.travel_agency.domain.dto.WeatherDTO;
+import com.travel_agency.domain.dto.get.DestinationDTOGet;
+import com.travel_agency.domain.dto.weather.WeatherDTO;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.exception.LocationNotFoundException;
 import com.travel_agency.service.DestinationService;
 import com.travel_agency.service.WeatherService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +40,17 @@ public class DestinationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DestinationDTO>> getDestinations() {
-        return ResponseEntity.ok(destinationService.findDestinations());
+    public ResponseEntity<List<DestinationDTOGet>> getDestinations() {
+        return ResponseEntity.ok(destinationService.getDestinations());
+    }
+    @Operation(summary = "Showing all users - for admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "All users from database", content = {@Content(mediaType = "application/json")}),
+    })
+    @GetMapping(value = "admin")
+    public ResponseEntity<List<DestinationDTO>> adminShowDestinations() {
+        return ResponseEntity.ok(destinationService.showDestinations());
     }
 
     @DeleteMapping(value = "{destinationId}")
@@ -45,7 +60,21 @@ public class DestinationController {
     }
 
     @GetMapping(value = "weather/{location}")
-    public Response getForecast(String location) throws LocationNotFoundException, IOException {
+    public Response getForecast(@PathVariable String location) throws LocationNotFoundException, IOException {
         return weatherService.getForecast(location);
+    }
+
+    @Operation(summary = "Checking weather for given location")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Weather for given location", content = {@Content(mediaType = "application/json")}),
+    })
+    @GetMapping(value = "weather2/{location}")
+    public ResponseEntity<WeatherDTO> getForecast2(@PathVariable String location) throws LocationNotFoundException {
+        return weatherService.getForecast2(location);
+    }
+    @GetMapping(value = "weather2")
+    public ResponseEntity<Quote> getQuote()  {
+        return weatherService.getQuote();
     }
 }

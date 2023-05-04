@@ -5,8 +5,7 @@ import lombok.Getter;
 import java.math.BigDecimal;
 @Getter
 public enum AccomodationType {
-    LOW_SEASON(100,150),
-    HIGH_SEASON(150,200);
+    INSTANCE(100,150);
 
     private final int singleBedPrice;
     private final int doubleBedPrice;

@@ -17,6 +17,7 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hotelId;
 
+    @Column(unique = true)
     @NotNull
     private String name;
 
@@ -25,7 +26,7 @@ public class Hotel {
     private Destination destination;
 
     @OneToMany(targetEntity = Reservation.class,
-            mappedBy = "reservationId",
+            mappedBy = "hotel",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
    List<Reservation> reservationList = new ArrayList<>();

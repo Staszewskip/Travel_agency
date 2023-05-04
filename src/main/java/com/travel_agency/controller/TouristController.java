@@ -1,9 +1,12 @@
 package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.TouristDTO;
-import com.travel_agency.domain.dto.TouristDTOGet;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.service.TouristService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +31,14 @@ public class TouristController {
         return ResponseEntity.ok(touristService.modifyTourist(touristDTO));
     }
 
-    @GetMapping(value = "{touristId}")
-    public ResponseEntity<TouristDTOGet> getTourist(@PathVariable long touristId) throws TouristNotFoundException {
-        return ResponseEntity.ok(touristService.findTourist(touristId));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<TouristDTOGet>> getAllTourists() {
-        return ResponseEntity.ok(touristService.findAllTourists());
+    @Operation(summary = "Showing all tourists - for admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "All tourists from database", content = {@Content(mediaType = "application/json")}),
+    })
+    @GetMapping(value = "admin")
+    public ResponseEntity<List<TouristDTO>> showAllTourists() {
+        return ResponseEntity.ok(touristService.showAllTourists());
     }
 
     @DeleteMapping("{touristId}")

@@ -3,6 +3,7 @@ package com.travel_agency.service;
 import com.travel_agency.domain.Destination;
 import com.travel_agency.domain.Hotel;
 import com.travel_agency.domain.dto.HotelDTO;
+import com.travel_agency.domain.dto.get.HotelDTOGet;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.exception.HotelNotFoundException;
 import com.travel_agency.mapper.HotelMapper;
@@ -29,7 +30,11 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
-    public List<HotelDTO> findHotels() {
+    public List<HotelDTOGet> getHotels() {
+        List<Hotel> HotelList = hotelRepository.findAll();
+        return hotelMapper.mapToHotelDTOGetList(HotelList);
+    }
+    public List<HotelDTO> showHotels() {
         List<Hotel> HotelList = hotelRepository.findAll();
         return hotelMapper.mapToHotelDTOList(HotelList);
     }
@@ -45,5 +50,4 @@ public class HotelService {
         hotelRepository.save(hotel);
         return hotelMapper.mapToHotelDTO(hotel);
     }
-
 }

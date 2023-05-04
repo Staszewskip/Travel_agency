@@ -1,15 +1,19 @@
 package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.HotelDTO;
+import com.travel_agency.domain.dto.get.HotelDTOGet;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.exception.HotelNotFoundException;
 import com.travel_agency.service.HotelService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -29,8 +33,18 @@ private final HotelService hotelService;
     }
 
     @GetMapping
-    public ResponseEntity<List<HotelDTO>> getHotels() {
-        return ResponseEntity.ok(hotelService.findHotels());
+    public ResponseEntity<List<HotelDTOGet>> getHotels() {
+        return ResponseEntity.ok(hotelService.getHotels());
+    }
+
+    @Operation(summary = "Showing all hotels - for admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "All hotels from database", content = {@Content(mediaType = "application/json")}),
+    })
+    @GetMapping(value = "admin")
+    public ResponseEntity<List<HotelDTO>> showHotels() {
+        return ResponseEntity.ok(hotelService.showHotels());
     }
 
     @DeleteMapping("{hotelId}")

@@ -2,6 +2,7 @@ package com.travel_agency.service;
 
 import com.travel_agency.domain.Destination;
 import com.travel_agency.domain.dto.DestinationDTO;
+import com.travel_agency.domain.dto.get.DestinationDTOGet;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.mapper.DestinationMapper;
 import com.travel_agency.repository.DestinationRepository;
@@ -23,11 +24,14 @@ public class DestinationService {
         return destinationRepository.save(destination);
     }
 
-    public List<DestinationDTO> findDestinations() {
+    public List<DestinationDTOGet> getDestinations() {
+        List<Destination> destinationList = destinationRepository.findAll();
+        return destinationMapper.mapToDestinationDTOGetList(destinationList);
+    }
+    public List<DestinationDTO> showDestinations() {
         List<Destination> destinationList = destinationRepository.findAll();
         return destinationMapper.mapToDestinationDTOList(destinationList);
     }
-
     public void deleteDestination(Long destinationId) throws DestinationNotFoundException {
         Destination destination = destinationRepository.findById(destinationId).orElseThrow(DestinationNotFoundException::new);
         destinationRepository.delete(destination);
