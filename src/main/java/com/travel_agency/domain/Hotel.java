@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class Hotel {
     @NotNull
     private String name;
 
+    @ToString.Exclude
     @ManyToOne()
     @JoinColumn(name = "destinationId")
     private Destination destination;
@@ -31,8 +33,11 @@ public class Hotel {
             fetch = FetchType.LAZY)
    List<Reservation> reservationList = new ArrayList<>();
 
-    public Hotel(String name,Destination destination) {
+    private long unitPrice;
+
+    public Hotel(String name,Destination destination,long unitPrice) {
         this.name = name;
         this.destination = destination;
+        this.unitPrice = unitPrice;
     }
 }

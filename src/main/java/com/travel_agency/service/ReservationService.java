@@ -3,6 +3,7 @@ package com.travel_agency.service;
 import com.travel_agency.domain.Hotel;
 import com.travel_agency.domain.Reservation;
 import com.travel_agency.domain.Tourist;
+import com.travel_agency.domain.TouristGuest;
 import com.travel_agency.domain.dto.ReservationDTO;
 import com.travel_agency.domain.dto.TouristGuestDTO;
 import com.travel_agency.domain.dto.get.ReservationDTOGet;
@@ -13,6 +14,7 @@ import com.travel_agency.mapper.ReservationMapper;
 import com.travel_agency.mapper.TouristGuestMapper;
 import com.travel_agency.repository.HotelRepository;
 import com.travel_agency.repository.ReservationRepository;
+import com.travel_agency.repository.TouristGuestRepository;
 import com.travel_agency.repository.TouristRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,28 +31,34 @@ public class ReservationService {
     private final TouristGuestMapper touristGuestMapper;
     private final ReservationRepository reservationRepository;
     private final TouristRepository touristRepository;
+    private final TouristGuestRepository touristGuestRepository;
     private final HotelRepository hotelRepository;
 
-    public void saveReservation(final ReservationDTO reservationDTO) throws TouristNotFoundException, HotelNotFoundException {
+    public Reservation saveReservation(final ReservationDTO reservationDTO) throws TouristNotFoundException, HotelNotFoundException {
         Tourist tourist = touristRepository.findById(reservationDTO.reservationOwner()).orElseThrow(TouristNotFoundException::new);
         Hotel hotel = hotelRepository.findById(reservationDTO.hotelId()).orElseThrow(HotelNotFoundException::new);
-        Reservation reservation = new Reservation(tourist, hotel,reservationDTO.checkIn_date(), reservationDTO.checkOut_date(), reservationDTO.accomodationType());
+        Reservation reservation = new Reservation(tourist, hotel, reservationDTO.checkIn_date(), reservationDTO.checkOut_date());
         reservationRepository.save(reservation);
+        return  reservation;
     }
 
-    public void addTouristsReservation(Long reservationId, TouristGuestDTO touristGuestDTO) throws ReservationNotFoundException {
+    public Reservation addTouristsReservation(Long reservationId, TouristGuestDTO touristGuestDTO) throws ReservationNotFoundException {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(ReservationNotFoundException::new);
-        reservation.getTouristGuestsList().add(touristGuestMapper.mapToTouristGuest(touristGuestDTO));
+        TouristGuest savedTouristGuest = touristGuestRepository.save(touristGuestMapper.mapToTouristGuest(touristGuestDTO));
+        reservation.getTouristGuestsList().add(savedTouristGuest);
+//        reservation.setTotalPrice(reservation.getTotalPrice());
         reservationRepository.save(reservation);
+        return reservation;
     }
+
     public List<ReservationDTOGet> getReservationsOfGivenUser(String firstname, String lastname) {
-        List<Reservation> reservationList = reservationRepository.findByUser(firstname,lastname);
+        List<Reservation> reservationList = reservationRepository.findByUser(firstname, lastname);
         return reservationMapper.mapToReservationDTOGetList(reservationList);
     }
 
-    public List<ReservationDTO> showReservations() {
+    public List<ReservationDTOGet> showReservations() {
         List<Reservation> reservationList = reservationRepository.findAll();
-        return reservationMapper.mapToReservationDTOList(reservationList);
+        return reservationMapper.mapToReservationDTOGetList(reservationList);
     }
 
     public void deleteReservation(Long reservationId) throws ReservationNotFoundException {

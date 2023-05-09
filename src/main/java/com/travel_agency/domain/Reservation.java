@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Formula;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NamedQuery(name = "Reservation.findByUser",
-            query = "FROM Reservation WHERE reservationOwner.firstname=:firstname AND reservationOwner.lastname=:lastname ")
+        query = "FROM Reservation WHERE reservationOwner.firstname=:firstname AND reservationOwner.lastname=:lastname ")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -25,12 +27,14 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "tourist_id")
     private Tourist reservationOwner;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "reservationList")
     private List<TouristGuest> touristGuestsList = new ArrayList<>();
 
+    @ToString.Exclude
     @ManyToOne()
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
@@ -40,32 +44,26 @@ public class Reservation {
 
     private LocalDate checkOut_date;
 
-    @Enumerated()
-    private AccomodationType accomodationType;
-
     @Transient
-    private BigDecimal totalPrice;
+    private long totalPrice;
 
-    private BigDecimal getTotalPrice() {
-        if (totalPrice == null) {
-            totalPrice = calculatePrice(checkIn_date, checkOut_date, touristGuestsList);
-        }
+    @PostLoad
+    public void setTotalPrice() {
+        totalPrice = getTotalPrice(checkIn_date,checkOut_date, touristGuestsList);
+    }
+    public long getTotalPrice(LocalDate checkIn_date, LocalDate checkOut_date, List<TouristGuest> touristGuestsList) {
+        long numberOfDays = Period.between(checkIn_date, checkOut_date).getDays();
+        long unitPrice = hotel.getUnitPrice();
+        long numberOfGuests = touristGuestsList.size() + 1;
+        long totalPrice = numberOfDays * numberOfGuests * unitPrice;
         return totalPrice;
     }
 
-    public BigDecimal calculatePrice(LocalDate checkIn_date, LocalDate checkOut_date, List<TouristGuest> touristGuestsList) {
-        int numberOfDays = Period.between(checkIn_date, checkOut_date).getDays();
-        int singleBedPrice = AccomodationType.INSTANCE.getSingleBedPrice();
-
-        BigDecimal totalPrice = BigDecimal.valueOf(numberOfDays * (touristGuestsList.size() + 1) * singleBedPrice);
-        return totalPrice;
-    }
-
-    public Reservation(Tourist reservationOwner,Hotel hotel, LocalDate checkIn_date, LocalDate checkOut_date, AccomodationType accomodationType) {
+    public Reservation(Tourist reservationOwner, Hotel hotel, LocalDate checkIn_date, LocalDate checkOut_date) {
         this.reservationOwner = reservationOwner;
         this.hotel = hotel;
         this.checkIn_date = checkIn_date;
         this.checkOut_date = checkOut_date;
-        this.accomodationType = accomodationType;
+        this.touristGuestsList = new ArrayList<>();
     }
 }

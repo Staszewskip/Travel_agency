@@ -21,7 +21,7 @@ public class Destination {
     @NotNull
     private String country;
 
-    @Column(unique = true)
+    @Column
     @NotNull
     private String city;
 

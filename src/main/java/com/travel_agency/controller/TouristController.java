@@ -1,6 +1,7 @@
 package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.TouristDTO;
+import com.travel_agency.domain.dto.get.TouristDTOGet;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.service.TouristService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +28,7 @@ public class TouristController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TouristDTO> modifyTourist(@RequestBody TouristDTO touristDTO) throws TouristNotFoundException {
+    public ResponseEntity<TouristDTOGet> modifyTourist(@RequestBody TouristDTO touristDTO) throws TouristNotFoundException {
         return ResponseEntity.ok(touristService.modifyTourist(touristDTO));
     }
 
@@ -37,7 +38,7 @@ public class TouristController {
                     description = "All tourists from database", content = {@Content(mediaType = "application/json")}),
     })
     @GetMapping(value = "admin")
-    public ResponseEntity<List<TouristDTO>> showAllTourists() {
+    public ResponseEntity<List<TouristDTOGet>> showAllTourists() {
         return ResponseEntity.ok(touristService.showAllTourists());
     }
 

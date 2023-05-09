@@ -1,7 +1,6 @@
 package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.ReservationDTO;
-import com.travel_agency.domain.dto.TouristDTO;
 import com.travel_agency.domain.dto.TouristGuestDTO;
 import com.travel_agency.domain.dto.get.ReservationDTOGet;
 import com.travel_agency.exception.HotelNotFoundException;
@@ -69,7 +68,7 @@ public class ReservationController {
                     description = "All reservations from database", content = {@Content(mediaType = "application/json")}),
     })
     @GetMapping(value = "admin")
-    public ResponseEntity<List<ReservationDTO>> showReservations() {
+    public ResponseEntity<List<ReservationDTOGet>> showReservations() {
         return ResponseEntity.ok(reservationService.showReservations());
     }
 

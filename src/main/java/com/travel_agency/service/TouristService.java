@@ -2,6 +2,7 @@ package com.travel_agency.service;
 
 import com.travel_agency.domain.Tourist;
 import com.travel_agency.domain.dto.TouristDTO;
+import com.travel_agency.domain.dto.get.TouristDTOGet;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.mapper.TouristMapper;
 import com.travel_agency.repository.TouristRepository;
@@ -26,9 +27,9 @@ public class TouristService {
         touristRepository.save(tourist);
     }
 
-    public List<TouristDTO> showAllTourists() {
+    public List<TouristDTOGet> showAllTourists() {
         List<Tourist> touristList = touristRepository.findAll();
-        return touristMapper.mapToTouristDTOList(touristList);
+        return touristMapper.mapToTouristDTOGetList(touristList);
     }
 
     public void deleteTourist(Long touristId) throws TouristNotFoundException {
@@ -36,7 +37,7 @@ public class TouristService {
         touristRepository.delete(tourist);
     }
 
-    public TouristDTO modifyTourist(final TouristDTO touristDTO) throws TouristNotFoundException {
+    public TouristDTOGet modifyTourist(final TouristDTO touristDTO) throws TouristNotFoundException {
         Tourist tourist = touristRepository.findById(touristDTO.touristId()).orElseThrow(TouristNotFoundException::new);
         tourist.setFirstname(touristDTO.firstname());
         tourist.setLastname(touristDTO.lastname());
@@ -45,6 +46,6 @@ public class TouristService {
         tourist.setEmail(touristDTO.email());
         tourist.setPhoneNumber(touristDTO.phoneNumber());
         touristRepository.save(tourist);
-        return touristMapper.mapToTouristDTO(tourist);
+        return touristMapper.mapToTouristDTOGet(tourist);
     }
 }

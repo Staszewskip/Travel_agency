@@ -29,8 +29,6 @@ class TouristServiceTestSuite {
         touristRepository.deleteAll();
     }
 
-
-
     @Test
     void findAllTourists() {
         // Given

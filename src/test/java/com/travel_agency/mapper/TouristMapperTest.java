@@ -2,6 +2,7 @@ package com.travel_agency.mapper;
 
 import com.travel_agency.domain.Tourist;
 import com.travel_agency.domain.dto.TouristDTO;
+import com.travel_agency.domain.dto.get.TouristDTOGet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

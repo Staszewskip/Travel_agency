@@ -14,11 +14,13 @@ public class HotelMapper {
         return new HotelDTO(
                 hotel.getHotelId(),
                 hotel.getName(),
-                hotel.getDestination().getDestinationId());
+                hotel.getDestination().getDestinationId(),
+                hotel.getUnitPrice());
     }
+
     public HotelDTOGet mapToHotelDTOGet(Hotel hotel) {
         return new HotelDTOGet(
-                          hotel.getName());
+                hotel.getName());
     }
 
     public List<HotelDTO> mapToHotelDTOList(List<Hotel> hotelList) {
@@ -26,6 +28,7 @@ public class HotelMapper {
                 .map(this::mapToHotelDTO)
                 .collect(Collectors.toList());
     }
+
     public List<HotelDTOGet> mapToHotelDTOGetList(List<Hotel> hotelList) {
         return hotelList.stream()
                 .map(this::mapToHotelDTOGet)
