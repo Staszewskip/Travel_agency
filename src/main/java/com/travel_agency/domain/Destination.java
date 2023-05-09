@@ -1,5 +1,6 @@
 package com.travel_agency.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -28,7 +29,11 @@ public class Destination {
     @NotNull
     private String postcode;
 
-    @OneToMany(targetEntity = Hotel.class, mappedBy = "destination", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Hotel.class,
+            mappedBy = "destination",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonBackReference
     List<Hotel> hotelList = new ArrayList<>();
 
     public Destination(String country, String city, String postcode) {

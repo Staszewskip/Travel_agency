@@ -68,7 +68,6 @@ class ReservationServiceTestSuite {
         Destination savedDestination = destinationRepository.save(destination);
 
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
-        Hotel savedHotel = hotelRepository.save(hotel);
 
         savedDestination.getHotelList().add(hotel);
         hotelRepository.save(hotel);
@@ -157,7 +156,29 @@ class ReservationServiceTestSuite {
     }
 
     @Test
-    void modifyReservation() {
+    void modifyReservation() throws ReservationNotFoundException {
+        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist savedTourist = touristRepository.save(tourist);
 
+        Destination destination = new Destination("country", "city", "postcode");
+        Destination savedDestination = destinationRepository.save(destination);
+
+        Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
+        Hotel savedHotel = hotelRepository.save(hotel);
+
+        savedDestination.getHotelList().add(hotel);
+        hotelRepository.save(hotel);
+        Reservation reservation = new Reservation(tourist, hotel, LocalDate.now(), LocalDate.now().plusDays(10));
+        Reservation savedReservation = reservationRepository.save(reservation);
+        // When
+        ReservationDTO modifiedReservation = reservationService.modifyReservation(savedReservation.getReservationId(),LocalDate.of(2023,1,2),LocalDate.now());
+        // Then
+        assertEquals(LocalDate.now(), modifiedReservation.checkOut_date());
+        // Cleanup
+        reservationRepository.deleteAll();
+        hotelRepository.deleteAll();
+        destinationRepository.deleteAll();
+        touristRepository.deleteAll();
+        touristGuestRepository.deleteAll();
     }
 }

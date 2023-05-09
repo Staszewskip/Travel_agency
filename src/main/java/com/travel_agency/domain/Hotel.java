@@ -1,5 +1,6 @@
 package com.travel_agency.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -18,11 +19,11 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hotelId;
 
-    @Column(unique = true)
     @NotNull
     private String name;
 
     @ToString.Exclude
+    @NotNull
     @ManyToOne()
     @JoinColumn(name = "destinationId")
     private Destination destination;
@@ -31,6 +32,7 @@ public class Hotel {
             mappedBy = "hotel",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @JsonBackReference
    List<Reservation> reservationList = new ArrayList<>();
 
     private long unitPrice;
