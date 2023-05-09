@@ -1,4 +1,4 @@
-package com.travel_agency.domain;
+package com.travel_agency.domain.dto.quote;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

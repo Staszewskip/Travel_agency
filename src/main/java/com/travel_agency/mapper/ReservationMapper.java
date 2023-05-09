@@ -3,7 +3,6 @@ package com.travel_agency.mapper;
 import com.travel_agency.domain.Reservation;
 import com.travel_agency.domain.dto.ReservationDTO;
 import com.travel_agency.domain.dto.get.ReservationDTOGet;
-import com.travel_agency.repository.TouristRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class ReservationMapper {
                 reservation.getHotel().getHotelId(),
                 reservation.getCheckIn_date(),
                 reservation.getCheckOut_date(),
-                reservation.getAccomodationType()
+                reservation.getTotalPrice()
         );
     }
 
@@ -34,8 +33,7 @@ public class ReservationMapper {
                 reservation.getReservationOwner(),
                 reservation.getHotel().getName(),
                 reservation.getCheckIn_date(),
-                reservation.getCheckOut_date(),
-                reservation.getAccomodationType()
+                reservation.getCheckOut_date()
         );
     }
 

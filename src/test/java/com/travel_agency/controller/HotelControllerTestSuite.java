@@ -40,7 +40,7 @@ class HotelControllerTestSuite {
     void addHotel() throws Exception {
         // Given
         Destination destination = new Destination("country", "city", "postcode");
-        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", destination.getDestinationId());
+        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", destination.getDestinationId(),100);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(hotelDTO);
         // When & Then

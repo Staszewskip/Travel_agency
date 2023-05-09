@@ -26,7 +26,7 @@ public class HotelService {
 
     public void saveHotel(final HotelDTO hotelDTO) throws DestinationNotFoundException {
         Destination destination = destinationRepository.findById(hotelDTO.destinationID()).orElseThrow(DestinationNotFoundException::new);
-        Hotel hotel = new Hotel(hotelDTO.hotelId(),hotelDTO.name(),destination, Collections.emptyList());
+        Hotel hotel = new Hotel(hotelDTO.hotelId(),hotelDTO.name(),destination, Collections.emptyList(),100);
         hotelRepository.save(hotel);
     }
 

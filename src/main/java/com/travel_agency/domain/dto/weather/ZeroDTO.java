@@ -1,17 +1,16 @@
 package com.travel_agency.domain.dto.weather;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class WeatherDTO {
-    @JsonProperty("location")
-    private LocationDTO location;
-    @JsonProperty("forecast")
-    private ForecastDTO forecast;
+@AllArgsConstructor
+public class ZeroDTO {
+    @JsonProperty("0")
+    private ItemDTO zero;
 }

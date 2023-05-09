@@ -1,12 +1,10 @@
 package com.travel_agency.controller;
 
-import com.squareup.okhttp.Response;
-import com.travel_agency.domain.Quote;
+import com.travel_agency.domain.dto.quote.QuoteDTO;
 import com.travel_agency.domain.dto.DestinationDTO;
 import com.travel_agency.domain.dto.get.DestinationDTOGet;
 import com.travel_agency.domain.dto.weather.WeatherDTO;
 import com.travel_agency.exception.DestinationNotFoundException;
-import com.travel_agency.exception.LocationNotFoundException;
 import com.travel_agency.service.DestinationService;
 import com.travel_agency.service.WeatherService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,23 +56,22 @@ public class DestinationController {
         destinationService.deleteDestination(destinationId);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping(value = "weather/{location}")
-    public Response getForecast(@PathVariable String location) throws LocationNotFoundException, IOException {
-        return weatherService.getForecast(location);
-    }
-
     @Operation(summary = "Checking weather for given location")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Weather for given location", content = {@Content(mediaType = "application/json")}),
     })
-    @GetMapping(value = "weather2/{location}")
-    public ResponseEntity<WeatherDTO> getForecast2(@PathVariable String location) throws LocationNotFoundException {
+    @GetMapping(value = "weather/{location}")
+    public ResponseEntity<WeatherDTO> getForecast2(@PathVariable String location)  {
         return weatherService.getForecast2(location);
     }
-    @GetMapping(value = "weather2")
-    public ResponseEntity<Quote> getQuote()  {
+
+    @GetMapping(value = "quote")
+    public ResponseEntity<QuoteDTO> getQuote()  {
         return weatherService.getQuote();
+    }
+    @GetMapping(value = "responseQuote")
+    public String getQuote2() throws IOException, InterruptedException {
+    return weatherService.getQuote2();
     }
 }

@@ -5,11 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ForecastDTO {
-    @JsonProperty("items")
-    private ZeroDTO[] items;
+public class ItemDTO {
+//    @JsonProperty("date")
+//    private String date;
+
+    @JsonProperty("temperature")
+    private TemperatureDTO temperature;
 }
