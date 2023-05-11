@@ -13,10 +13,4 @@ public class TouristGuestMapper {
                touristGuestDTO.lastname(),
                touristGuestDTO.isAdult());
     }
-    public TouristGuestDTO mapToTouristGuestDTO(TouristGuest touristGuest){
-        return new TouristGuestDTO(
-                touristGuest.getFirstname(),
-                touristGuest.getLastname(),
-                touristGuest.isAdult());
-    }
 }

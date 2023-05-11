@@ -32,4 +32,8 @@ public class GlobalHttpExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleLocationNotFoundException(LocationNotFoundException locationNotFoundException) {
         return new ResponseEntity<>("Location not found", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(CurrencyNotFoundException.class)
+    public ResponseEntity<Object> handleCurrencyNotFoundException(CurrencyNotFoundException currencyNotFoundException) {
+        return new ResponseEntity<>("Currency not found", HttpStatus.BAD_REQUEST);
+    }
 }

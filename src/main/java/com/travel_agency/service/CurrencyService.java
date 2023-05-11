@@ -23,12 +23,11 @@ public class CurrencyService {
     private final RestTemplate restTemplate;
     private final AdminConfig adminConfig;
 
-    public  ResponseEntity<CurrencyDTO> currencyConverter(String basicCurrencyCode, String desiredCurrencyCode, int amount) throws CurrencyNotFoundException {
+    public  ResponseEntity<String> currencyConverter(String currentCurrencyCode, String desiredCurrencyCode, int amount) throws CurrencyNotFoundException {
 
         URI url = UriComponentsBuilder.fromHttpUrl(adminConfig.getCurrencyApiEndpoint())
-                .queryParam("format", "json")
-                .queryParam("from", basicCurrencyCode)
-                .queryParam("to", desiredCurrencyCode)
+                .queryParam("have", currentCurrencyCode)
+                .queryParam("want", desiredCurrencyCode)
                 .queryParam("amount", amount)
                 .build()
                 .encode()
@@ -36,11 +35,11 @@ public class CurrencyService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Key", adminConfig.getApiKey());
-        headers.set("X-RapidAPI-Host", adminConfig.getWeatherApiHost());
+        headers.set("X-RapidAPI-Host", adminConfig.getCurrencyApiHost());
 
         HttpEntity entity = new HttpEntity(headers);
 
-        ResponseEntity<CurrencyDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, CurrencyDTO.class);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         return Optional.ofNullable(response)
                 .orElseThrow(CurrencyNotFoundException::new);
     }

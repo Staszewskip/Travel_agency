@@ -10,7 +10,6 @@ import java.util.List;
 
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "destinations")
@@ -32,7 +31,7 @@ public class Destination {
     @OneToMany(targetEntity = Hotel.class,
             mappedBy = "destination",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @JsonBackReference
     List<Hotel> hotelList = new ArrayList<>();
 

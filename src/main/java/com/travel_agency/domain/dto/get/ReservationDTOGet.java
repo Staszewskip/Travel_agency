@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record ReservationDTOGet(Long reservationOwnerId, String hotelName, LocalDate checkIn_date,
-                                LocalDate checkOut_date, List<TouristGuest> touristGuestList) {
+                                LocalDate checkOut_date, List<TouristGuest> touristGuestList, Long totalPrice) {
 }

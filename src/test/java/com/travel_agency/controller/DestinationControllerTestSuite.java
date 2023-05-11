@@ -2,11 +2,10 @@ package com.travel_agency.controller;
 
 import com.google.gson.Gson;
 import com.travel_agency.domain.Destination;
-import com.travel_agency.domain.Hotel;
+import com.travel_agency.domain.dto.DestinationDTO;
 import com.travel_agency.domain.dto.HotelDTO;
-import com.travel_agency.repository.DestinationRepository;
-import com.travel_agency.repository.HotelRepository;
-import com.travel_agency.service.HotelService;
+import com.travel_agency.service.DestinationService;
+import com.travel_agency.service.WeatherService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,71 +19,81 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringJUnitWebConfig
-@WebMvcTest(HotelController.class)
-class HotelControllerTestSuite {
+@WebMvcTest(DestinationController.class)
+class DestinationControllerTestSuite {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private HotelService hotelService;
+    private DestinationService destinationService;
+
+    @MockBean
+    private WeatherService weatherService;
 
     @Test
-    void addHotel() throws Exception {
+    void addDestination() throws Exception {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
-        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", destination.getDestinationId(), 100);
+        DestinationDTO destinationDTO = new DestinationDTO(null,"country", "city", "postcode");
         Gson gson = new Gson();
-        String jsonContent = gson.toJson(hotelDTO);
+        String jsonContent = gson.toJson(destinationDTO);
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post("/v1/hotels")
+                        .post("/v1/destinations")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(jsonContent))
                 .andExpect(status().is(200));
     }
 
+    @Test
+    void modifyDestination() throws Exception {
+    }
 
     @Test
-    void getHotels() throws Exception {
+    void getDestinations() throws Exception {
         // Given
-        when(hotelService.getHotels()).thenReturn(List.of());
+        when(destinationService.getDestinations()).thenReturn(List.of());
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/v1/hotels")
+                        .get("/v1/destinations")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(0)));
     }
 
     @Test
-    void showHotels() throws Exception {
+    void adminShowDestinations() throws Exception {
         // Given
-        when(hotelService.showHotels()).thenReturn(List.of());
+        when(destinationService.showDestinations()).thenReturn(List.of());
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/v1/hotels/admin")
+                        .get("/v1/destinations/admin")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(0)));
     }
 
     @Test
-    void deleteHotel() throws Exception {
+    void deleteDestination() throws Exception {
         // Given
-        doNothing().when(hotelService).deleteHotel(1L);
+        doNothing().when(destinationService).deleteDestination(1L);
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .delete("/v1/hotels/1")
+                        .delete("/v1/destinations/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is(200));
+    }
+
+    @Test
+    void getForecast2() {
     }
 }

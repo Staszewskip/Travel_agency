@@ -45,7 +45,7 @@ public class Reservation {
     private LocalDate checkOut_date;
 
     @Transient
-    private long totalPrice;
+    private Long totalPrice;
 
     @PostLoad
     public void setTotalPrice() {

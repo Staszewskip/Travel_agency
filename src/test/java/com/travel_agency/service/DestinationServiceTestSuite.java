@@ -5,6 +5,7 @@ import com.travel_agency.domain.dto.DestinationDTO;
 import com.travel_agency.domain.dto.get.DestinationDTOGet;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.repository.DestinationRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,11 @@ class DestinationServiceTestSuite {
     @Autowired
     private DestinationService destinationService;
 
+    @AfterEach
+    void cleanRepository() {
+        destinationRepository.deleteAll();
+    }
+
     @Test
     void saveDestination() {
         // Given
@@ -29,10 +35,7 @@ class DestinationServiceTestSuite {
         destinationService.saveDestination(destinationDTO);
         // Then
         assertEquals(1, destinationRepository.count());
-        // Cleanup
-        destinationRepository.deleteAll();
     }
-
 
     @Test
     void showDestinations() {
@@ -45,8 +48,19 @@ class DestinationServiceTestSuite {
         List<DestinationDTO> foundDestinationDTOList = destinationService.showDestinations();
         // Then
         assertEquals(2, foundDestinationDTOList.size());
-        // Cleanup
-        destinationRepository.deleteAll();
+    }
+
+    @Test
+    void getDestinations() {
+        // Given
+        DestinationDTO destinationDTO = new DestinationDTO(1L, "country", "city", "postcode");
+        DestinationDTO destinationDTO2 = new DestinationDTO(1L, "country", "city", "postcode");
+        destinationService.saveDestination(destinationDTO);
+        destinationService.saveDestination(destinationDTO2);
+        // When
+        List<DestinationDTOGet> foundDestinationDTOList = destinationService.getDestinations();
+        // Then
+        assertEquals(2, foundDestinationDTOList.size());
     }
 
     @Test
@@ -62,8 +76,6 @@ class DestinationServiceTestSuite {
         long updatedSize = destinationRepository.count();
         // Then
         assertNotEquals(size, updatedSize);
-        // Cleanup
-        destinationRepository.deleteAll();
     }
 
     @Test
@@ -79,7 +91,5 @@ class DestinationServiceTestSuite {
         String updatedCountry = destination.getCountry();
         // Then
         assertEquals(updatedCountry, updatedDestination.getCountry());
-        // Cleanup
-        destinationRepository.deleteAll();
     }
 }

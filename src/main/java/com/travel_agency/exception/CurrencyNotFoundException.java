@@ -1,4 +1,4 @@
 package com.travel_agency.exception;
 
-public class CurrencyNotFoundException extends Exception{
+public class CurrencyNotFoundException extends Exception {
 }

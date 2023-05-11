@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class DestinationService {
     private final DestinationMapper destinationMapper;
@@ -36,12 +35,12 @@ public class DestinationService {
         Destination destination = destinationRepository.findById(destinationId).orElseThrow(DestinationNotFoundException::new);
         destinationRepository.delete(destination);
     }
-
+    @Transactional
     public DestinationDTO modifyDestination(final DestinationDTO destinationDTO) throws DestinationNotFoundException {
         Destination destination = destinationRepository.findById(destinationDTO.destinationId()).orElseThrow(DestinationNotFoundException::new);
         destination.setCountry(destinationDTO.country());
         destination.setCity(destinationDTO.city());
-        destination.setCountry(destinationDTO.postcode());
+        destination.setPostcode(destinationDTO.postcode());
         destinationRepository.save(destination);
         return destinationMapper.mapToDestinationDTO(destination);
     }

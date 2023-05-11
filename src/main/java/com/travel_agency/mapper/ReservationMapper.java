@@ -12,23 +12,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ReservationMapper {
-    public ReservationDTO mapToReservationDTO(Reservation reservation) {
-        return new ReservationDTO(
-                reservation.getReservationId(),
-                reservation.getReservationOwner().getTouristId(),
-                reservation.getHotel().getHotelId(),
-                reservation.getCheckIn_date(),
-                reservation.getCheckOut_date(),
-                reservation.getTotalPrice()
-        );
-    }
     public ReservationDTOGet mapToReservationDTOGet(Reservation reservation) {
         return new ReservationDTOGet(
                 reservation.getReservationOwner().getTouristId(),
                 reservation.getHotel().getName(),
                 reservation.getCheckIn_date(),
                 reservation.getCheckOut_date(),
-                reservation.getTouristGuestsList()
+                reservation.getTouristGuestsList(),
+                reservation.getTotalPrice()
         );
     }
 

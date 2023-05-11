@@ -48,7 +48,7 @@ public class ReservationController {
                     description = "All reservations from database", content = {@Content(mediaType = "application/json")}),
     })
     @PutMapping(value = "{reservationId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReservationDTO> modifyReservation(@PathVariable Long reservationId, @RequestBody LocalDate checkIn, LocalDate checkOut) throws ReservationNotFoundException {
+    public ResponseEntity<ReservationDTOGet> modifyReservation(@PathVariable Long reservationId, @RequestBody LocalDate checkIn, LocalDate checkOut) throws ReservationNotFoundException {
         return ResponseEntity.ok(reservationService.modifyReservation(reservationId, checkIn, checkOut));
     }
 

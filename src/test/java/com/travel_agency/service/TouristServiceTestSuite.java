@@ -4,6 +4,7 @@ import com.travel_agency.domain.Tourist;
 import com.travel_agency.domain.dto.TouristDTO;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.repository.TouristRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,11 @@ class TouristServiceTestSuite {
     @Autowired
     private TouristService touristService;
 
+    @AfterEach
+    void cleanRepository() {
+        touristRepository.deleteAll();
+    }
+
     @Test
     void saveTourist() {
         // Given
@@ -25,8 +31,6 @@ class TouristServiceTestSuite {
         touristService.saveTourist(touristDTO);
         // Then
         assertEquals(1, touristRepository.count());
-        // Cleanup
-        touristRepository.deleteAll();
     }
 
     @Test
@@ -40,8 +44,6 @@ class TouristServiceTestSuite {
         long size = touristService.showAllTourists().size();
         // Then
         assertEquals(2, size);
-        // Cleanup
-        touristRepository.deleteAll();
     }
 
     @Test
@@ -57,8 +59,6 @@ class TouristServiceTestSuite {
         long updatedSize = touristRepository.count();
         // Then
         assertNotEquals(size, updatedSize);
-        // Cleanup
-        touristRepository.deleteAll();
     }
 
     @Test
@@ -73,7 +73,5 @@ class TouristServiceTestSuite {
         String updatedName = tourist.getFirstname();
         // Then
         assertEquals(updatedName, updatedTourist.getFirstname());
-        // Cleanup
-        touristRepository.deleteAll();
     }
 }

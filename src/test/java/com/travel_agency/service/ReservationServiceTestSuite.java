@@ -8,6 +8,7 @@ import com.travel_agency.exception.HotelNotFoundException;
 import com.travel_agency.exception.ReservationNotFoundException;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.repository.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +34,16 @@ class ReservationServiceTestSuite {
     @Autowired
     private HotelRepository hotelRepository;
 
+    @AfterEach
+    void cleanRepository() {
+        reservationRepository.deleteAll();
+        hotelRepository.deleteAll();
+        destinationRepository.deleteAll();
+        touristRepository.deleteAll();
+        touristGuestRepository.deleteAll();
+    }
+
+
     @Test
     void saveReservation() throws TouristNotFoundException, HotelNotFoundException {
         // Given
@@ -51,11 +62,6 @@ class ReservationServiceTestSuite {
         reservationService.saveReservation(reservationDTO);
         // Then
         assertEquals(1, reservationRepository.count());
-        // Cleanup
-        reservationRepository.deleteAll();
-        hotelRepository.deleteAll();
-        destinationRepository.deleteAll();
-        touristRepository.deleteAll();
     }
 
     @Test
@@ -73,17 +79,11 @@ class ReservationServiceTestSuite {
         hotelRepository.save(hotel);
         Reservation reservation = new Reservation(tourist, hotel, LocalDate.now(), LocalDate.now().plusDays(10));
         Reservation savedReservation = reservationRepository.save(reservation);
-        TouristGuestDTO touristGuestDTO = new TouristGuestDTO("firstname","lastname",true);
-                // When
+        TouristGuestDTO touristGuestDTO = new TouristGuestDTO("firstname", "lastname", true);
+        // When
         Reservation modifiedReservation = reservationService.addTouristsReservation(savedReservation.getReservationId(), touristGuestDTO);
         // Then
         assertEquals(1, modifiedReservation.getTouristGuestsList().size());
-        // Cleanup
-        reservationRepository.deleteAll();
-        hotelRepository.deleteAll();
-        destinationRepository.deleteAll();
-        touristRepository.deleteAll();
-        touristGuestRepository.deleteAll();
     }
 
     @Test
@@ -102,11 +102,6 @@ class ReservationServiceTestSuite {
         List<ReservationDTOGet> foundList = reservationService.getReservationsOfGivenUser("tourist", "lastname");
         // Then
         assertEquals(1, foundList.size());
-        // Cleanup
-        reservationRepository.deleteAll();
-        hotelRepository.deleteAll();
-        destinationRepository.deleteAll();
-        touristRepository.deleteAll();
     }
 
     @Test
@@ -125,11 +120,6 @@ class ReservationServiceTestSuite {
         List<ReservationDTOGet> reservationDTOList = reservationService.showReservations();
         // Then
         assertEquals(1, reservationDTOList.size());
-        // Cleanup
-        reservationRepository.deleteAll();
-        hotelRepository.deleteAll();
-        destinationRepository.deleteAll();
-        touristRepository.deleteAll();
     }
 
     @Test
@@ -142,17 +132,12 @@ class ReservationServiceTestSuite {
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
         Hotel savedHotel = hotelRepository.save(hotel);
         savedDestination.getHotelList().add(hotel);
-        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10),200);
+        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10), 200);
         Reservation savedReservation = reservationService.saveReservation(reservationDTO);
         // When
         reservationService.deleteReservation(savedReservation.getReservationId());
         // Then
-        assertNotEquals(1,reservationRepository.count());
-        // Cleanup
-        reservationRepository.deleteAll();
-        hotelRepository.deleteAll();
-        destinationRepository.deleteAll();
-        touristRepository.deleteAll();
+        assertNotEquals(1, reservationRepository.count());
     }
 
     @Test
@@ -171,14 +156,8 @@ class ReservationServiceTestSuite {
         Reservation reservation = new Reservation(tourist, hotel, LocalDate.now(), LocalDate.now().plusDays(10));
         Reservation savedReservation = reservationRepository.save(reservation);
         // When
-        ReservationDTO modifiedReservation = reservationService.modifyReservation(savedReservation.getReservationId(),LocalDate.of(2023,1,2),LocalDate.now());
+        ReservationDTOGet modifiedReservation = reservationService.modifyReservation(savedReservation.getReservationId(), LocalDate.of(2023, 1, 2), LocalDate.now());
         // Then
         assertEquals(LocalDate.now(), modifiedReservation.checkOut_date());
-        // Cleanup
-        reservationRepository.deleteAll();
-        hotelRepository.deleteAll();
-        destinationRepository.deleteAll();
-        touristRepository.deleteAll();
-        touristGuestRepository.deleteAll();
     }
 }

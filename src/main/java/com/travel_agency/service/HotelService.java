@@ -13,11 +13,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class HotelService {
     private final HotelMapper hotelMapper;
@@ -26,7 +24,7 @@ public class HotelService {
 
     public void saveHotel(final HotelDTO hotelDTO) throws DestinationNotFoundException {
         Destination destination = destinationRepository.findById(hotelDTO.destinationID()).orElseThrow(DestinationNotFoundException::new);
-        Hotel hotel = new Hotel(hotelDTO.hotelId(),hotelDTO.name(),destination, Collections.emptyList(),100);
+        Hotel hotel = new Hotel(hotelDTO.name(),destination,200);
         hotelRepository.save(hotel);
     }
 
@@ -43,7 +41,7 @@ public class HotelService {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(HotelNotFoundException::new);
         hotelRepository.delete(hotel);
     }
-
+    @Transactional
     public HotelDTO modifyHotel(final HotelDTO hotelDTO) throws HotelNotFoundException{
         Hotel hotel = hotelRepository.findById(hotelDTO.hotelId()).orElseThrow(HotelNotFoundException::new);
         hotel.setName(hotelDTO.name());

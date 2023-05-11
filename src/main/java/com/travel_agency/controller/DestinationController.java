@@ -1,9 +1,7 @@
 package com.travel_agency.controller;
 
-import com.travel_agency.domain.dto.quote.QuoteDTO;
 import com.travel_agency.domain.dto.DestinationDTO;
 import com.travel_agency.domain.dto.get.DestinationDTOGet;
-import com.travel_agency.domain.dto.weather.WeatherDTO;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.service.DestinationService;
 import com.travel_agency.service.WeatherService;
@@ -16,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -62,16 +59,7 @@ public class DestinationController {
                     description = "Weather for given location", content = {@Content(mediaType = "application/json")}),
     })
     @GetMapping(value = "weather/{location}")
-    public ResponseEntity<WeatherDTO> getForecast2(@PathVariable String location)  {
-        return weatherService.getForecast2(location);
-    }
-
-    @GetMapping(value = "quote")
-    public ResponseEntity<QuoteDTO> getQuote()  {
-        return weatherService.getQuote();
-    }
-    @GetMapping(value = "responseQuote")
-    public String getQuote2() throws IOException, InterruptedException {
-    return weatherService.getQuote2();
+    public ResponseEntity<String> getForecast(@PathVariable String location)  {
+        return weatherService.getForecast(location);
     }
 }

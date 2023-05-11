@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class TouristService {
     private final TouristRepository touristRepository;
@@ -36,6 +35,7 @@ public class TouristService {
         Tourist tourist = touristRepository.findById(touristId).orElseThrow(TouristNotFoundException::new);
         touristRepository.delete(tourist);
     }
+
 
     public TouristDTOGet modifyTourist(final TouristDTO touristDTO) throws TouristNotFoundException {
         Tourist tourist = touristRepository.findById(touristDTO.touristId()).orElseThrow(TouristNotFoundException::new);

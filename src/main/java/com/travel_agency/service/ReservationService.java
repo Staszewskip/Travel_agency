@@ -24,7 +24,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ReservationService {
     private final ReservationMapper reservationMapper;
@@ -66,11 +65,12 @@ public class ReservationService {
         reservationRepository.delete(reservation);
     }
 
-    public ReservationDTO modifyReservation(Long reservationId, LocalDate checkIn, LocalDate checkOut) throws ReservationNotFoundException {
+    @Transactional
+    public ReservationDTOGet modifyReservation(Long reservationId, LocalDate checkIn, LocalDate checkOut) throws ReservationNotFoundException {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(ReservationNotFoundException::new);
         reservation.setCheckIn_date(checkIn);
         reservation.setCheckOut_date(checkOut);
         Reservation updatedReservation = reservationRepository.save(reservation);
-        return reservationMapper.mapToReservationDTO(updatedReservation);
+        return reservationMapper.mapToReservationDTOGet(updatedReservation);
     }
 }
