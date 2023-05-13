@@ -2,6 +2,7 @@ package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.DestinationDTO;
 import com.travel_agency.domain.dto.get.DestinationDTOGet;
+import com.travel_agency.domain.dto.weather.WeatherDTO;
 import com.travel_agency.exception.DestinationNotFoundException;
 import com.travel_agency.service.DestinationService;
 import com.travel_agency.service.WeatherService;
@@ -59,7 +60,7 @@ public class DestinationController {
                     description = "Weather for given location", content = {@Content(mediaType = "application/json")}),
     })
     @GetMapping(value = "weather/{location}")
-    public ResponseEntity<String> getForecast(@PathVariable String location)  {
+    public ResponseEntity<WeatherDTO> getForecast(@PathVariable String location)  {
         return weatherService.getForecast(location);
     }
 }

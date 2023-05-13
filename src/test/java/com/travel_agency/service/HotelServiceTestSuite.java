@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -76,6 +75,7 @@ class HotelServiceTestSuite {
 
     @Test
     void deleteHotel() throws HotelNotFoundException {
+        // Given
         Destination destination = new Destination("country", "city", "postcode");
         Destination savedDestination = destinationRepository.save(destination);
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 200);

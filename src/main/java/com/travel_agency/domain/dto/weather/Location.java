@@ -9,16 +9,16 @@ import jakarta.validation.Valid;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "location",
-    "forecast"
+    "name",
+    "coordinates"
 })
 @Generated("jsonschema2pojo")
-public class WeatherDTO {
+public class Location {
 
-    @JsonProperty("location")
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("coordinates")
     @Valid
-    private Location location;
-    @JsonProperty("forecast")
-    @Valid
-    private Forecast forecast;
+    private Coordinates coordinates;
+
 }

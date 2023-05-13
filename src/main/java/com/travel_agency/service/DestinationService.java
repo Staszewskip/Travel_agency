@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class DestinationService {
@@ -35,7 +35,7 @@ public class DestinationService {
         Destination destination = destinationRepository.findById(destinationId).orElseThrow(DestinationNotFoundException::new);
         destinationRepository.delete(destination);
     }
-    @Transactional
+
     public DestinationDTO modifyDestination(final DestinationDTO destinationDTO) throws DestinationNotFoundException {
         Destination destination = destinationRepository.findById(destinationDTO.destinationId()).orElseThrow(DestinationNotFoundException::new);
         destination.setCountry(destinationDTO.country());

@@ -3,10 +3,8 @@ package com.travel_agency.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,6 @@ public class Hotel {
     @NotNull
     private String name;
 
-    @ToString.Exclude
     @NotNull
     @ManyToOne()
     @JoinColumn(name = "destinationId")
@@ -32,10 +29,12 @@ public class Hotel {
     @OneToMany(targetEntity = Reservation.class,
             mappedBy = "hotel",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY,
+            orphanRemoval = true)
     @JsonBackReference
     List<Reservation> reservationList = new ArrayList<>();
 
+    @NotNull
     private long unitPrice;
 
     public Hotel(String name, Destination destination, long unitPrice) {

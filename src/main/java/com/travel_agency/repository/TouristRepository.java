@@ -1,7 +1,6 @@
 package com.travel_agency.repository;
 
 import com.travel_agency.domain.Tourist;
-import com.travel_agency.domain.dto.TouristDTO;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

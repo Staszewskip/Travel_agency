@@ -5,20 +5,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "location",
-    "forecast"
+    "latitude",
+    "longitude"
 })
 @Generated("jsonschema2pojo")
-public class WeatherDTO {
+public class Coordinates {
 
-    @JsonProperty("location")
-    @Valid
-    private Location location;
-    @JsonProperty("forecast")
-    @Valid
-    private Forecast forecast;
+    @JsonProperty("latitude")
+    private Integer latitude;
+    @JsonProperty("longitude")
+    private Integer longitude;
 }

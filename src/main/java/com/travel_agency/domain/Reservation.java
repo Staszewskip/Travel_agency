@@ -34,7 +34,7 @@ public class Reservation {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "reservationList")
     private List<TouristGuest> touristGuestsList = new ArrayList<>();
 
-    @ToString.Exclude
+
     @ManyToOne()
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
@@ -42,6 +42,7 @@ public class Reservation {
     @NotNull
     private LocalDate checkIn_date;
 
+    @NotNull
     private LocalDate checkOut_date;
 
     @Transient

@@ -31,8 +31,9 @@ public class Destination {
     @OneToMany(targetEntity = Hotel.class,
             mappedBy = "destination",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    @JsonBackReference
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+           )
     List<Hotel> hotelList = new ArrayList<>();
 
     public Destination(String country, String city, String postcode) {

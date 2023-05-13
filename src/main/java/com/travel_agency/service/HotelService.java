@@ -36,7 +36,7 @@ public class HotelService {
         List<Hotel> HotelList = hotelRepository.findAll();
         return hotelMapper.mapToHotelDTOList(HotelList);
     }
-
+    @Transactional
     public void deleteHotel(Long hotelId) throws HotelNotFoundException {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(HotelNotFoundException::new);
         hotelRepository.delete(hotel);

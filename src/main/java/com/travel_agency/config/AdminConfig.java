@@ -21,4 +21,7 @@ public class AdminConfig {
 
     @Value("currency-converter-by-api-ninjas.p.rapidapi.com")
     private String currencyApiHost;
+
+    @Value("p.staszewski1@kodilla.com")
+    private String adminMail;
 }

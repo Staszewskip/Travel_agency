@@ -68,7 +68,7 @@ class ReservationServiceTestSuite {
     void addTouristsReservation() throws ReservationNotFoundException {
         // Given
         Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
-        Tourist savedTourist = touristRepository.save(tourist);
+        touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city", "postcode");
         Destination savedDestination = destinationRepository.save(destination);
@@ -143,13 +143,13 @@ class ReservationServiceTestSuite {
     @Test
     void modifyReservation() throws ReservationNotFoundException {
         Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
-        Tourist savedTourist = touristRepository.save(tourist);
+        touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city", "postcode");
         Destination savedDestination = destinationRepository.save(destination);
 
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
-        Hotel savedHotel = hotelRepository.save(hotel);
+        hotelRepository.save(hotel);
 
         savedDestination.getHotelList().add(hotel);
         hotelRepository.save(hotel);
