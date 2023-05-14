@@ -6,6 +6,8 @@ import com.travel_agency.domain.dto.get.TouristDTOGet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TouristMapperTest {
@@ -14,8 +16,8 @@ TouristMapper touristMapper = new TouristMapper();
     @Test
     void mapToTourist() {
         // Given
-        TouristDTO touristDTO = new TouristDTO(0L, "tourist", "lastname", true, "login", "password", "email", 123456);
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        TouristDTO touristDTO = new TouristDTO(0L, "tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         // When
         Tourist mappedTourist = touristMapper.mapToTourist(touristDTO);
         TouristDTO mappedTouristDTO = touristMapper.mapToTouristDTO(tourist);

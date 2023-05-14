@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -26,7 +28,7 @@ class TouristServiceTestSuite {
     @Test
     void saveTourist() {
         // Given
-        TouristDTO touristDTO = new TouristDTO(1L, "tourist", "lastname", true, "login", "password", "email", 123456);
+        TouristDTO touristDTO = new TouristDTO(1L, "tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         // When
         touristService.saveTourist(touristDTO);
         // Then
@@ -36,8 +38,8 @@ class TouristServiceTestSuite {
     @Test
     void findAllTourists() {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
-        Tourist tourist2 = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist2 = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         // When
         touristRepository.save(tourist);
         touristRepository.save(tourist2);
@@ -49,8 +51,8 @@ class TouristServiceTestSuite {
     @Test
     void deleteTourist() throws TouristNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
-        Tourist tourist2 = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist2 = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         // When
         touristRepository.save(tourist);
         touristRepository.save(tourist2);
@@ -63,11 +65,11 @@ class TouristServiceTestSuite {
 
     @Test
     void modifyTourist() throws TouristNotFoundException {
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         touristRepository.save(tourist);
         long touristId = tourist.getTouristId();
         // When
-        TouristDTO touristDTO = new TouristDTO(touristId, "updated_tourist", "lastname", true, "login", "password", "email", 123456);
+        TouristDTO touristDTO = new TouristDTO(touristId, "updated_tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         touristService.modifyTourist(touristDTO);
         Tourist updatedTourist = touristRepository.save(tourist);
         String updatedName = tourist.getFirstname();

@@ -1,9 +1,7 @@
 package com.travel_agency.controller;
 
-import com.google.gson.Gson;
-import com.travel_agency.domain.Destination;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel_agency.domain.dto.DestinationDTO;
-import com.travel_agency.domain.dto.HotelDTO;
 import com.travel_agency.service.DestinationService;
 import com.travel_agency.service.WeatherService;
 import org.hamcrest.Matchers;
@@ -19,7 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,8 +36,8 @@ class DestinationControllerTestSuite {
     void addDestination() throws Exception {
         // Given
         DestinationDTO destinationDTO = new DestinationDTO(null,"country", "city", "postcode");
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(destinationDTO);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonContent = objectMapper.writeValueAsString(destinationDTO);
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
@@ -48,10 +45,6 @@ class DestinationControllerTestSuite {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(jsonContent))
                 .andExpect(status().is(200));
-    }
-
-    @Test
-    void modifyDestination() throws Exception {
     }
 
     @Test

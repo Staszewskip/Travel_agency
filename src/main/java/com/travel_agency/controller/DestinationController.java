@@ -54,7 +54,7 @@ public class DestinationController {
         destinationService.deleteDestination(destinationId);
         return ResponseEntity.ok().build();
     }
-    @Operation(summary = "Checking weather for given location")
+    @Operation(summary = "Checking weather for given location, API key required")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Weather for given location", content = {@Content(mediaType = "application/json")}),

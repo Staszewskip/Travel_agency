@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Tourist {
     private String lastname;
 
     @NotNull
-    private boolean isAdult;
+    private LocalDate birthdate;
 
     @NotNull
     private String login;
@@ -47,10 +48,10 @@ public class Tourist {
     )
     private List<Reservation> reservationList = new ArrayList<>();
 
-    public Tourist(String firstname, String lastname, boolean isAdult, String login, String password, String email, int phoneNumber) {
+    public Tourist(String firstname, String lastname, LocalDate birthdate, String login, String password, String email, int phoneNumber) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.isAdult = isAdult;
+        this.birthdate = birthdate;
         this.login = login;
         this.password = password;
         this.email = email;

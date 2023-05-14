@@ -15,7 +15,7 @@ public class TouristMapper {
         return new Tourist(
                 touristDTO.firstname(),
                 touristDTO.lastname(),
-                touristDTO.isAdult(),
+                touristDTO.birthdate(),
                 touristDTO.login(),
                 touristDTO.password(),
                 touristDTO.email(),
@@ -27,7 +27,7 @@ public class TouristMapper {
                 tourist.getTouristId(),
                 tourist.getFirstname(),
                 tourist.getLastname(),
-                tourist.isAdult(),
+                tourist.getBirthdate(),
                 tourist.getLogin(),
                 tourist.getPassword(),
                 tourist.getEmail(),
@@ -40,7 +40,7 @@ public class TouristMapper {
                 tourist.getTouristId(),
                 tourist.getFirstname(),
                 tourist.getLastname(),
-                tourist.isAdult(),
+                tourist.getBirthdate(),
                 tourist.getEmail(),
                 tourist.getPhoneNumber()
         );

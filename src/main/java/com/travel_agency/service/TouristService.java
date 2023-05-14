@@ -36,7 +36,6 @@ public class TouristService {
         touristRepository.delete(tourist);
     }
 
-
     public TouristDTOGet modifyTourist(final TouristDTO touristDTO) throws TouristNotFoundException {
         Tourist tourist = touristRepository.findById(touristDTO.touristId()).orElseThrow(TouristNotFoundException::new);
         tourist.setFirstname(touristDTO.firstname());

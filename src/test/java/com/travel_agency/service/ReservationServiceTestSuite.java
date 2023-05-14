@@ -47,7 +47,7 @@ class ReservationServiceTestSuite {
     @Test
     void saveReservation() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city", "postcode");
@@ -67,7 +67,7 @@ class ReservationServiceTestSuite {
     @Test
     void addTouristsReservation() throws ReservationNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city", "postcode");
@@ -79,7 +79,7 @@ class ReservationServiceTestSuite {
         hotelRepository.save(hotel);
         Reservation reservation = new Reservation(tourist, hotel, LocalDate.now(), LocalDate.now().plusDays(10));
         Reservation savedReservation = reservationRepository.save(reservation);
-        TouristGuestDTO touristGuestDTO = new TouristGuestDTO("firstname", "lastname", true);
+        TouristGuestDTO touristGuestDTO = new TouristGuestDTO("firstname", "lastname", LocalDate.now());
         // When
         Reservation modifiedReservation = reservationService.addTouristsReservation(savedReservation.getReservationId(), touristGuestDTO);
         // Then
@@ -89,7 +89,7 @@ class ReservationServiceTestSuite {
     @Test
     void getReservationsOfGivenUser() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
         Destination destination = new Destination("country", "city", "postcode");
         Destination savedDestination = destinationRepository.save(destination);
@@ -107,7 +107,7 @@ class ReservationServiceTestSuite {
     @Test
     void showReservations() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
         Destination destination = new Destination("country", "city", "postcode");
         Destination savedDestination = destinationRepository.save(destination);
@@ -125,7 +125,7 @@ class ReservationServiceTestSuite {
     @Test
     void deleteReservation() throws TouristNotFoundException, HotelNotFoundException, ReservationNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
         Destination destination = new Destination("country", "city", "postcode");
         Destination savedDestination = destinationRepository.save(destination);
@@ -142,7 +142,7 @@ class ReservationServiceTestSuite {
 
     @Test
     void modifyReservation() throws ReservationNotFoundException {
-        Tourist tourist = new Tourist("tourist", "lastname", true, "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
         touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city", "postcode");

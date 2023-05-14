@@ -11,6 +11,6 @@ public class TouristGuestMapper {
        return new TouristGuest(
                touristGuestDTO.firstname(),
                touristGuestDTO.lastname(),
-               touristGuestDTO.isAdult());
+               touristGuestDTO.birthdate());
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class AdminConfig {
-    @Value("58e256cde8msh201e19be7623aecp13f735jsnd8504b9a0583")
+    @Value("${rapidapi.key}")
     private String apiKey;
 
     @Value("https://forecast9.p.rapidapi.com/rapidapi/forecast/")

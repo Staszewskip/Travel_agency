@@ -10,6 +10,4 @@ public class CoreConfiguration {
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
-
-    
-}
+    }

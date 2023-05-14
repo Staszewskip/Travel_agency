@@ -1,11 +1,8 @@
 package com.travel_agency.controller;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel_agency.domain.Destination;
-import com.travel_agency.domain.Hotel;
 import com.travel_agency.domain.dto.HotelDTO;
-import com.travel_agency.repository.DestinationRepository;
-import com.travel_agency.repository.HotelRepository;
 import com.travel_agency.service.HotelService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -37,8 +34,8 @@ class HotelControllerTestSuite {
         // Given
         Destination destination = new Destination("country", "city", "postcode");
         HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", destination.getDestinationId(), 100);
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(hotelDTO);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonContent = objectMapper.writeValueAsString(hotelDTO);
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders

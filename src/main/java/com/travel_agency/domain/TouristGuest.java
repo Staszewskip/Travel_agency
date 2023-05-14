@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class TouristGuest {
     private String lastname;
 
     @NotNull
-    private boolean isAdult;
+    private LocalDate birthdate;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -35,10 +36,10 @@ public class TouristGuest {
     )
     private List<Reservation> reservationList = new ArrayList<>();
 
-    public TouristGuest(String firstname, String lastname, boolean isAdult) {
+    public TouristGuest(String firstname, String lastname, LocalDate birthdate) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.isAdult = isAdult;
+        this.birthdate = birthdate;
         this.reservationList = new ArrayList<>();
     }
 }

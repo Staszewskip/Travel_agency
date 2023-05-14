@@ -1,8 +1,9 @@
 package com.travel_agency.controller;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.travel_agency.domain.dto.TouristDTO;
-import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.service.TouristService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.mockito.Mockito.doNothing;
@@ -33,9 +35,12 @@ class TouristControllerTestSuite {
     @Test
     void addTourist() throws Exception {
         // Given
-        TouristDTO touristDTO = new TouristDTO(1L, "name", "lastname", true, "login", "password", "email", 123456);
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(touristDTO);
+
+        TouristDTO touristDTO = new TouristDTO(1L, "name", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        String jsonContent = mapper.writeValueAsString(touristDTO);
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
@@ -48,9 +53,11 @@ class TouristControllerTestSuite {
     @Test
     void modifyTourist() throws Exception {
         // Given
-        TouristDTO touristDTO = new TouristDTO(1L, "updated_name", "updated_lastname", true, "login", "password", "email", 123456);
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(touristDTO);
+        TouristDTO touristDTO = new TouristDTO(1L, "updated_name", "updated_lastname", LocalDate.now(), "login", "password", "email", 123456);
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        String jsonContent = mapper.writeValueAsString(touristDTO);
         // When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
