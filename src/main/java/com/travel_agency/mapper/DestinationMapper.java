@@ -17,23 +17,20 @@ public class DestinationMapper {
     public Destination mapToDestination(DestinationDTO destinationDTO) {
         return new Destination(
                 destinationDTO.country(),
-                destinationDTO.city(),
-                destinationDTO.postcode());
+                destinationDTO.city());
     }
 
     public DestinationDTO mapToDestinationDTO(Destination destination) {
         return new DestinationDTO(
                 destination.getDestinationId(),
                 destination.getCountry(),
-                destination.getCity(),
-                destination.getPostcode());
+                destination.getCity());
     }
 
     public DestinationDTOGet mapToDestinationDTOGet(Destination destination) {
         return new DestinationDTOGet(
                 destination.getCountry(),
                 destination.getCity(),
-                destination.getPostcode(),
                 hotelMapper.mapToHotelDTOGetList(destination.getHotelList()));
     }
 

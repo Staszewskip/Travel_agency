@@ -17,7 +17,7 @@ public class Tourist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long touristId;
+    private Long touristId;
 
     @NotNull
     private String firstname;
@@ -34,6 +34,8 @@ public class Tourist {
     @NotNull
     private String password;
 
+    private String passwordHash;
+
     @NotNull
     private String email;
 
@@ -48,12 +50,13 @@ public class Tourist {
     )
     private List<Reservation> reservationList = new ArrayList<>();
 
-    public Tourist(String firstname, String lastname, LocalDate birthdate, String login, String password, String email, int phoneNumber) {
+    public Tourist(String firstname, String lastname, LocalDate birthdate, String login, String password,String passwordHash, String email, int phoneNumber) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
         this.login = login;
         this.password = password;
+        this.passwordHash = passwordHash;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }

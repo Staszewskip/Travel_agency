@@ -20,7 +20,10 @@ public class HotelMapper {
 
     public HotelDTOGet mapToHotelDTOGet(Hotel hotel) {
         return new HotelDTOGet(
-                hotel.getName());
+                hotel.getDestination().getCountry(),
+                hotel.getDestination().getCity(),
+                hotel.getName(),
+                hotel.getUnitPrice());
     }
 
     public List<HotelDTO> mapToHotelDTOList(List<Hotel> hotelList) {

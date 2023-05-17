@@ -36,9 +36,9 @@ class HotelServiceTestSuite {
     @Test
     void saveHotel() throws DestinationNotFoundException {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
-        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100);
+        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100L);
         // When
         hotelService.saveHotel(hotelDTO);
         // Then
@@ -47,10 +47,10 @@ class HotelServiceTestSuite {
 
     @Test
     void findHotels() throws DestinationNotFoundException {
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
-        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100);
-        HotelDTO hotelDTO2 = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100);
+        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100L);
+        HotelDTO hotelDTO2 = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100L);
         hotelService.saveHotel(hotelDTO);
         hotelService.saveHotel(hotelDTO2);
         // When
@@ -61,10 +61,10 @@ class HotelServiceTestSuite {
 
     @Test
     void getHotels() throws DestinationNotFoundException {
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
-        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100);
-        HotelDTO hotelDTO2 = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100);
+        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100L);
+        HotelDTO hotelDTO2 = new HotelDTO(1L, "Hotel_name", savedDestination.getDestinationId(), 100L);
         hotelService.saveHotel(hotelDTO);
         hotelService.saveHotel(hotelDTO2);
         // When
@@ -76,7 +76,7 @@ class HotelServiceTestSuite {
     @Test
     void deleteHotel() throws HotelNotFoundException {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 200);
         Hotel hotel2 = new Hotel("Hotel_name", savedDestination, 200);
@@ -92,12 +92,12 @@ class HotelServiceTestSuite {
 
     @Test
     void modifyHotel() throws HotelNotFoundException {
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
-        Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
+        Hotel hotel = new Hotel("Hotel_name", savedDestination, 100L);
         Hotel savedHotel = hotelRepository.save(hotel);
         // When
-        HotelDTO hotelDTO = new HotelDTO(savedHotel.getHotelId(), "Updated_name", savedDestination.getDestinationId(), 100);
+        HotelDTO hotelDTO = new HotelDTO(savedHotel.getHotelId(), "Updated_name", savedDestination.getDestinationId(), 100L);
         hotelService.modifyHotel(hotelDTO);
         Hotel updatedHotel = hotelRepository.save(hotel);
         String updatedName = updatedHotel.getName();

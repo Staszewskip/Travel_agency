@@ -1,4 +1,4 @@
 package com.travel_agency.domain.dto;
 
-public record HotelDTO(Long hotelId, String name, Long destinationID, long unitPrice) {
+public record HotelDTO(Long hotelId, String name, Long destinationID, Long unitPrice) {
 }

@@ -10,7 +10,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -27,10 +29,12 @@ public class DestinationService {
         List<Destination> destinationList = destinationRepository.findAll();
         return destinationMapper.mapToDestinationDTOGetList(destinationList);
     }
+
     public List<DestinationDTO> showDestinations() {
         List<Destination> destinationList = destinationRepository.findAll();
         return destinationMapper.mapToDestinationDTOList(destinationList);
     }
+
     public void deleteDestination(Long destinationId) throws DestinationNotFoundException {
         Destination destination = destinationRepository.findById(destinationId).orElseThrow(DestinationNotFoundException::new);
         destinationRepository.delete(destination);
@@ -40,7 +44,6 @@ public class DestinationService {
         Destination destination = destinationRepository.findById(destinationDTO.destinationId()).orElseThrow(DestinationNotFoundException::new);
         destination.setCountry(destinationDTO.country());
         destination.setCity(destinationDTO.city());
-        destination.setPostcode(destinationDTO.postcode());
         destinationRepository.save(destination);
         return destinationMapper.mapToDestinationDTO(destination);
     }

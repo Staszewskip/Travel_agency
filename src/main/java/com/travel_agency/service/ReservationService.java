@@ -1,9 +1,6 @@
 package com.travel_agency.service;
 
-import com.travel_agency.domain.Hotel;
-import com.travel_agency.domain.Reservation;
-import com.travel_agency.domain.Tourist;
-import com.travel_agency.domain.TouristGuest;
+import com.travel_agency.domain.*;
 import com.travel_agency.domain.dto.ReservationDTO;
 import com.travel_agency.domain.dto.TouristGuestDTO;
 import com.travel_agency.domain.dto.get.ReservationDTOGet;
@@ -16,6 +13,7 @@ import com.travel_agency.repository.HotelRepository;
 import com.travel_agency.repository.ReservationRepository;
 import com.travel_agency.repository.TouristGuestRepository;
 import com.travel_agency.repository.TouristRepository;
+import com.travel_agency.scheduler.SimpleEmailService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,12 +30,14 @@ public class ReservationService {
     private final TouristRepository touristRepository;
     private final TouristGuestRepository touristGuestRepository;
     private final HotelRepository hotelRepository;
+    private final SimpleEmailService simpleEmailService;
 
     public Reservation saveReservation(final ReservationDTO reservationDTO) throws TouristNotFoundException, HotelNotFoundException {
         Tourist tourist = touristRepository.findById(reservationDTO.reservationOwner()).orElseThrow(TouristNotFoundException::new);
         Hotel hotel = hotelRepository.findById(reservationDTO.hotelId()).orElseThrow(HotelNotFoundException::new);
         Reservation reservation = new Reservation(tourist, hotel, reservationDTO.checkIn_date(), reservationDTO.checkOut_date());
         reservationRepository.save(reservation);
+        simpleEmailService.send(new Mail(tourist.getEmail(),"Your reservation has been confirmed","Thank you for using our services"));
         return  reservation;
     }
 

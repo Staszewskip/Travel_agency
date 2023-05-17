@@ -32,8 +32,8 @@ class HotelControllerTestSuite {
     @Test
     void addHotel() throws Exception {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
-        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", destination.getDestinationId(), 100);
+        Destination destination = new Destination("country", "city");
+        HotelDTO hotelDTO = new HotelDTO(1L, "Hotel_name", destination.getDestinationId(), 100L);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonContent = objectMapper.writeValueAsString(hotelDTO);
         // When & Then

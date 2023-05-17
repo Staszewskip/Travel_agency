@@ -47,10 +47,10 @@ class ReservationServiceTestSuite {
     @Test
     void saveReservation() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash", "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
 
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
 
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
@@ -58,7 +58,7 @@ class ReservationServiceTestSuite {
 
         savedDestination.getHotelList().add(hotel);
         hotelRepository.save(hotel);
-        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10), 200);        // When
+        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10));        // When
         reservationService.saveReservation(reservationDTO);
         // Then
         assertEquals(1, reservationRepository.count());
@@ -67,10 +67,10 @@ class ReservationServiceTestSuite {
     @Test
     void addTouristsReservation() throws ReservationNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
         touristRepository.save(tourist);
 
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
 
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
@@ -89,14 +89,14 @@ class ReservationServiceTestSuite {
     @Test
     void getReservationsOfGivenUser() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
         Hotel savedHotel = hotelRepository.save(hotel);
         savedDestination.getHotelList().add(hotel);
-        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10), 100);
+        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10));
         reservationService.saveReservation(reservationDTO);
         // When
         List<ReservationDTOGet> foundList = reservationService.getReservationsOfGivenUser("tourist", "lastname");
@@ -107,14 +107,14 @@ class ReservationServiceTestSuite {
     @Test
     void showReservations() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
         Hotel savedHotel = hotelRepository.save(hotel);
         savedDestination.getHotelList().add(hotel);
-        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10), 100);
+        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10));
         reservationService.saveReservation(reservationDTO);
         // When
         List<ReservationDTOGet> reservationDTOList = reservationService.showReservations();
@@ -125,14 +125,14 @@ class ReservationServiceTestSuite {
     @Test
     void deleteReservation() throws TouristNotFoundException, HotelNotFoundException, ReservationNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
         Tourist savedTourist = touristRepository.save(tourist);
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);
         Hotel savedHotel = hotelRepository.save(hotel);
         savedDestination.getHotelList().add(hotel);
-        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10), 200);
+        ReservationDTO reservationDTO = new ReservationDTO(1L, savedTourist.getTouristId(), savedHotel.getHotelId(), LocalDate.now(), LocalDate.now().plusDays(10));
         Reservation savedReservation = reservationService.saveReservation(reservationDTO);
         // When
         reservationService.deleteReservation(savedReservation.getReservationId());
@@ -142,10 +142,10 @@ class ReservationServiceTestSuite {
 
     @Test
     void modifyReservation() throws ReservationNotFoundException {
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
         touristRepository.save(tourist);
 
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
 
         Hotel hotel = new Hotel("Hotel_name", savedDestination, 100);

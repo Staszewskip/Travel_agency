@@ -38,8 +38,8 @@ class TouristServiceTestSuite {
     @Test
     void findAllTourists() {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
-        Tourist tourist2 = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
+        Tourist tourist2 = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "passwordHash", "email", 123456);
         // When
         touristRepository.save(tourist);
         touristRepository.save(tourist2);
@@ -51,8 +51,8 @@ class TouristServiceTestSuite {
     @Test
     void deleteTourist() throws TouristNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
-        Tourist tourist2 = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
+        Tourist tourist2 = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "passwordHash", "email", 123456);
         // When
         touristRepository.save(tourist);
         touristRepository.save(tourist2);
@@ -65,7 +65,7 @@ class TouristServiceTestSuite {
 
     @Test
     void modifyTourist() throws TouristNotFoundException {
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
         touristRepository.save(tourist);
         long touristId = tourist.getTouristId();
         // When

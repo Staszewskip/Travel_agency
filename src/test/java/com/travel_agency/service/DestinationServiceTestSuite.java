@@ -33,7 +33,7 @@ class DestinationServiceTestSuite {
     @Test
     void saveDestination() {
         // Given
-        DestinationDTO destinationDTO = new DestinationDTO(1L, "country", "city", "postcode");
+        DestinationDTO destinationDTO = new DestinationDTO(1L, "country", "city");
         // When
         destinationService.saveDestination(destinationDTO);
         // Then
@@ -43,8 +43,8 @@ class DestinationServiceTestSuite {
     @Test
     void showDestinations() {
         // Given
-        DestinationDTO destinationDTO = new DestinationDTO(1L, "country", "city", "postcode");
-        DestinationDTO destinationDTO2 = new DestinationDTO(1L, "country", "city", "postcode");
+        DestinationDTO destinationDTO = new DestinationDTO(1L, "country", "city");
+        DestinationDTO destinationDTO2 = new DestinationDTO(1L, "country", "city");
         destinationService.saveDestination(destinationDTO);
         destinationService.saveDestination(destinationDTO2);
         // When
@@ -56,8 +56,8 @@ class DestinationServiceTestSuite {
     @Test
     void getDestinations() {
         // Given
-        Destination destination = new Destination( "country", "city", "postcode");
-        Destination destination2 = new Destination( "country", "city", "postcode");
+        Destination destination = new Destination( "country", "city");
+        Destination destination2 = new Destination( "country", "city");
         Hibernate.initialize(destination.getHotelList());
         Hibernate.initialize(destination2.getHotelList());
         destinationRepository.save(destination);
@@ -71,8 +71,8 @@ class DestinationServiceTestSuite {
     @Test
     void deleteDestination() throws DestinationNotFoundException {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
-        Destination destination2 = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
+        Destination destination2 = new Destination("country", "city");
         destinationRepository.save(destination);
         destinationRepository.save(destination2);
         // When
@@ -86,11 +86,11 @@ class DestinationServiceTestSuite {
     @Test
     void modifyDestination() throws DestinationNotFoundException {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         destinationRepository.save(destination);
         long destinationId = destination.getDestinationId();
         // When
-        DestinationDTO destinationDTO = new DestinationDTO(destinationId, "updated_country", "city", "postcode");
+        DestinationDTO destinationDTO = new DestinationDTO(destinationId, "updated_country", "city");
         destinationService.modifyDestination(destinationDTO);
         Destination updatedDestination = destinationRepository.save(destination);
         String updatedCountry = destination.getCountry();

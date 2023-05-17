@@ -35,7 +35,7 @@ class DestinationControllerTestSuite {
     @Test
     void addDestination() throws Exception {
         // Given
-        DestinationDTO destinationDTO = new DestinationDTO(null,"country", "city", "postcode");
+        DestinationDTO destinationDTO = new DestinationDTO(null,"country", "city");
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonContent = objectMapper.writeValueAsString(destinationDTO);
         // When & Then

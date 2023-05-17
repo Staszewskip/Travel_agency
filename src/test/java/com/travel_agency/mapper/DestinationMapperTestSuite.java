@@ -21,8 +21,8 @@ class DestinationMapperTestSuite {
     @Test
     void mapToDestination() {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
-        DestinationDTO destinationDTO = new DestinationDTO(null, "country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
+        DestinationDTO destinationDTO = new DestinationDTO(null, "country", "city");
         // When
         Destination mappedDestination = destinationMapper.mapToDestination(destinationDTO);
         // Then
@@ -32,8 +32,8 @@ class DestinationMapperTestSuite {
     @Test
     void mapToDestinationDTO() {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
-        DestinationDTO destinationDTO = new DestinationDTO(null, "country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
+        DestinationDTO destinationDTO = new DestinationDTO(null, "country", "city");
         // When
         DestinationDTO mappedDestinationDTO = destinationMapper.mapToDestinationDTO(destination);
         // Then
@@ -41,8 +41,8 @@ class DestinationMapperTestSuite {
     }
     @Test
     void mapToDestinationDTOList() {
-        List<Destination> destinationList = Arrays.asList(new Destination("country", "city", "postcode"));
-        List<DestinationDTO> destinationDTOList = Arrays.asList(new DestinationDTO(null, "country", "city", "postcode"));
+        List<Destination> destinationList = Arrays.asList(new Destination("country", "city"));
+        List<DestinationDTO> destinationDTOList = Arrays.asList(new DestinationDTO(null, "country", "city"));
         // When
         List<DestinationDTO> mappedDestinationDTOList = destinationMapper.mapToDestinationDTOList(destinationList);
         // Then
@@ -52,10 +52,10 @@ class DestinationMapperTestSuite {
     @Test
     void mapToDestinationDTOGet() {
         // Given
-        Destination destination = new Destination("country", "city", "postcode");
+        Destination destination = new Destination("country", "city");
         List<HotelDTOGet> hotelDTOGetList = new ArrayList<>();
 
-        DestinationDTOGet destinationDTOGet = new DestinationDTOGet("country", "city", "postcode", hotelDTOGetList);
+        DestinationDTOGet destinationDTOGet = new DestinationDTOGet("country", "city", hotelDTOGetList);
         // When
         DestinationDTOGet mappedDestinationDTOget = destinationMapper.mapToDestinationDTOGet(destination);
         // Then
@@ -64,9 +64,9 @@ class DestinationMapperTestSuite {
     @Test
     void mapToDestinationDTOGetList() {
         // Given
-        List<Destination> destinationList = Arrays.asList(new Destination("country", "city", "postcode"));
+        List<Destination> destinationList = Arrays.asList(new Destination("country", "city"));
         List<HotelDTOGet> hotelDTOGetList = new ArrayList<>();
-        List<DestinationDTOGet> destinationDTOList = Arrays.asList(new DestinationDTOGet( "country", "city", "postcode",hotelDTOGetList));
+        List<DestinationDTOGet> destinationDTOList = Arrays.asList(new DestinationDTOGet( "country", "city",hotelDTOGetList));
         // When
         List<DestinationDTOGet> mappedDestinationDTOGetList = destinationMapper.mapToDestinationDTOGetList(destinationList);
         // Then

@@ -6,8 +6,9 @@ import com.travel_agency.domain.dto.get.TouristDTOGet;
 import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.mapper.TouristMapper;
 import com.travel_agency.repository.TouristRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +18,22 @@ import java.util.List;
 public class TouristService {
     private final TouristRepository touristRepository;
     private final TouristMapper touristMapper;
-//    private final PasswordEncoder bCryptPasswordEncoder;
+
 
     public void saveTourist(final TouristDTO touristDTO) {
-        Tourist tourist = touristMapper.mapToTourist(touristDTO);
-//        String hashedPassword = bCryptPasswordEncoder.encode(tourist.getPassword());
-//        tourist.setPassword(hashedPassword);
+        String passwordSalt = RandomStringUtils.random(32);
+        String passwordHash = DigestUtils.sha512Hex(touristDTO.password() + passwordSalt);
+//        Tourist tourist = touristMapper.mapToTourist(touristDTO);
+        Tourist tourist = new Tourist(
+                touristDTO.firstname(),
+                touristDTO.lastname(),
+                touristDTO.birthdate(),
+                touristDTO.login(),
+                passwordSalt,
+                passwordHash,
+                touristDTO.email(),
+                touristDTO.phoneNumber()
+        );
         touristRepository.save(tourist);
     }
 

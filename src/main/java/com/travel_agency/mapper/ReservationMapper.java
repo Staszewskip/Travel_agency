@@ -1,7 +1,6 @@
 package com.travel_agency.mapper;
 
 import com.travel_agency.domain.Reservation;
-import com.travel_agency.domain.dto.ReservationDTO;
 import com.travel_agency.domain.dto.get.ReservationDTOGet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

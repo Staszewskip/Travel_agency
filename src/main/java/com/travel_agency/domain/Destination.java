@@ -25,8 +25,7 @@ public class Destination {
     @NotNull
     private String city;
 
-    @NotNull
-    private String postcode;
+
 
     @OneToMany(targetEntity = Hotel.class,
             mappedBy = "destination",
@@ -36,9 +35,8 @@ public class Destination {
            )
     List<Hotel> hotelList = new ArrayList<>();
 
-    public Destination(String country, String city, String postcode) {
+    public Destination(String country, String city) {
         this.country = country;
         this.city = city;
-        this.postcode = postcode;
     }
 }

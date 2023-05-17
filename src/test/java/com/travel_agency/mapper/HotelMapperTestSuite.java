@@ -20,8 +20,8 @@ class HotelMapperTestSuite {
     @Test
     void testMapToHotelDTO() {
         // Given
-        Hotel hotel = new Hotel("Hotel_name", new Destination("country", "city", "postcode"),100);
-        HotelDTO hotelDTO = new HotelDTO(null, "Hotel_name", null,100);
+        Hotel hotel = new Hotel("Hotel_name", new Destination("country", "city"),100);
+        HotelDTO hotelDTO = new HotelDTO(null, "Hotel_name", null,100L);
         // When
         HotelDTO mappedHotelDTO = hotelMapper.mapToHotelDTO(hotel);
         // Then
@@ -31,8 +31,8 @@ class HotelMapperTestSuite {
     @Test
     void testMapToHotelDTOList() {
         // Given
-        List<Hotel> hotelList = Arrays.asList(new Hotel("Hotel_name", new Destination("country", "city", "postcode"),100));
-        List<HotelDTO> hotelDTOList = Arrays.asList(new HotelDTO(null, "Hotel_name", null,100));
+        List<Hotel> hotelList = Arrays.asList(new Hotel("Hotel_name", new Destination("country", "city"),100));
+        List<HotelDTO> hotelDTOList = Arrays.asList(new HotelDTO(null, "Hotel_name", null,100L));
         // When
         List<HotelDTO> mappedHotelDTOList = hotelMapper.mapToHotelDTOList(hotelList);
         // Then

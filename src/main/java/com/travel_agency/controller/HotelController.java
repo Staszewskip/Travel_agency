@@ -20,10 +20,18 @@ import java.util.List;
 @RequestMapping("v1/hotels")
 @RequiredArgsConstructor
 public class HotelController {
-private final HotelService hotelService;
+    private final HotelService hotelService;
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addHotel(@RequestBody HotelDTO hotelDTO) throws DestinationNotFoundException {
         hotelService.saveHotel(hotelDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Creating data for frontend purposes")
+    @PostMapping(value = "testData")
+    public ResponseEntity<Void> createExampleData() {
+        hotelService.createExampleData();
         return ResponseEntity.ok().build();
     }
 
