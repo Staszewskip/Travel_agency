@@ -42,6 +42,10 @@ public class Tourist {
     @NotNull
     private int phoneNumber;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "join_tourist_reservation",
@@ -50,7 +54,7 @@ public class Tourist {
     )
     private List<Reservation> reservationList = new ArrayList<>();
 
-    public Tourist(String firstname, String lastname, LocalDate birthdate, String login, String password,String passwordHash, String email, int phoneNumber) {
+    public Tourist(String firstname, String lastname, LocalDate birthdate, String login, String password,String passwordHash, String email, int phoneNumber, Role role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
@@ -59,5 +63,6 @@ public class Tourist {
         this.passwordHash = passwordHash;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.role = role;
     }
 }

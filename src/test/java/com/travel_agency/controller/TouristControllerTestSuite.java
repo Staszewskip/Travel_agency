@@ -3,6 +3,7 @@ package com.travel_agency.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.travel_agency.domain.Role;
 import com.travel_agency.domain.dto.TouristDTO;
 import com.travel_agency.service.TouristService;
 import org.hamcrest.Matchers;
@@ -36,7 +37,7 @@ class TouristControllerTestSuite {
     void addTourist() throws Exception {
         // Given
 
-        TouristDTO touristDTO = new TouristDTO(1L, "name", "lastname", LocalDate.now(), "login", "password", "email", 123456);
+        TouristDTO touristDTO = new TouristDTO(1L, "name", "lastname", LocalDate.now(), "login", "password", "email", 123456, Role.USER);
         ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();
@@ -53,7 +54,7 @@ class TouristControllerTestSuite {
     @Test
     void modifyTourist() throws Exception {
         // Given
-        TouristDTO touristDTO = new TouristDTO(1L, "updated_name", "updated_lastname", LocalDate.now(), "login", "password", "email", 123456);
+        TouristDTO touristDTO = new TouristDTO(1L, "updated_name", "updated_lastname", LocalDate.now(), "login", "password", "email", 123456,Role.USER);
         ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();

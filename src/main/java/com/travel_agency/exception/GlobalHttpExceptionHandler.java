@@ -36,4 +36,12 @@ public class GlobalHttpExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleCurrencyNotFoundException(CurrencyNotFoundException currencyNotFoundException) {
         return new ResponseEntity<>("Currency not found", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(WrongPasswordException.class)
+    public ResponseEntity<Object> handleWrongPasswordException(WrongPasswordException wrongPasswordException) {
+        return new ResponseEntity<>("Wrong password provided, please try again", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(LoginAlreadyUsedException.class)
+    public ResponseEntity<Object> handleLoginAlreadyUsedException(LoginAlreadyUsedException loginAlreadyUsedException) {
+        return new ResponseEntity<>("Login already used, please try different one", HttpStatus.BAD_REQUEST);
+    }
 }

@@ -33,7 +33,7 @@ public class ReservationService {
     private final SimpleEmailService simpleEmailService;
 
     public Reservation saveReservation(final ReservationDTO reservationDTO) throws TouristNotFoundException, HotelNotFoundException {
-        Tourist tourist = touristRepository.findById(reservationDTO.reservationOwner()).orElseThrow(TouristNotFoundException::new);
+        Tourist tourist = touristRepository.findById(reservationDTO.reservationOwnerId()).orElseThrow(TouristNotFoundException::new);
         Hotel hotel = hotelRepository.findById(reservationDTO.hotelId()).orElseThrow(HotelNotFoundException::new);
         Reservation reservation = new Reservation(tourist, hotel, reservationDTO.checkIn_date(), reservationDTO.checkOut_date());
         reservationRepository.save(reservation);
@@ -45,7 +45,6 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(ReservationNotFoundException::new);
         TouristGuest savedTouristGuest = touristGuestRepository.save(touristGuestMapper.mapToTouristGuest(touristGuestDTO));
         reservation.getTouristGuestsList().add(savedTouristGuest);
-//        reservation.setTotalPrice(reservation.getTotalPrice());
         reservationRepository.save(reservation);
         return reservation;
     }

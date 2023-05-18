@@ -1,8 +1,12 @@
 package com.travel_agency.controller;
 
 import com.travel_agency.domain.dto.TouristDTO;
+import com.travel_agency.domain.dto.TouristLoggedDTO;
+import com.travel_agency.domain.dto.TouristLoggingDTO;
 import com.travel_agency.domain.dto.get.TouristDTOGet;
+import com.travel_agency.exception.LoginAlreadyUsedException;
 import com.travel_agency.exception.TouristNotFoundException;
+import com.travel_agency.exception.WrongPasswordException;
 import com.travel_agency.service.TouristService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,9 +26,24 @@ public class TouristController {
     private final TouristService touristService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addTourist(@RequestBody TouristDTO touristDTO) {
+    public ResponseEntity<Void> addTourist(@RequestBody TouristDTO touristDTO) throws LoginAlreadyUsedException {
         touristService.saveTourist(touristDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TouristLoggedDTO> login(@RequestBody TouristLoggingDTO touristLoggingDTO) throws TouristNotFoundException, WrongPasswordException {
+        return ResponseEntity.ok(touristService.login(touristLoggingDTO));
+    }
+    @Operation(summary = "Find tourist by login")
+    @GetMapping()
+    public ResponseEntity<TouristDTOGet> findByLogin(@RequestParam String login) throws TouristNotFoundException{
+        return ResponseEntity.ok(touristService.findByLogin(login));
+    }
+    @Operation(summary = "Check if login is taken")
+    @GetMapping("logincheck")
+    public ResponseEntity<Boolean> existsByLogin(@RequestParam String login) {
+        return ResponseEntity.ok(touristService.existsByLogin(login));
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

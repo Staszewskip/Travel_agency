@@ -1,6 +1,7 @@
 package com.travel_agency.mapper;
 
 import com.travel_agency.domain.Tourist;
+import com.travel_agency.domain.dto.TouristDTO;
 import com.travel_agency.domain.dto.get.TouristDTOGet;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,11 @@ public class TouristMapper {
                 tourist.getTouristId(),
                 tourist.getFirstname(),
                 tourist.getLastname(),
+                tourist.getLogin(),
                 tourist.getBirthdate(),
                 tourist.getEmail(),
-                tourist.getPhoneNumber()
+                tourist.getPhoneNumber(),
+                tourist.getRole()
         );
     }
 

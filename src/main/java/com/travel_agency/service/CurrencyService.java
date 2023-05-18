@@ -1,10 +1,7 @@
 package com.travel_agency.service;
 
 import com.travel_agency.config.AdminConfig;
-import com.travel_agency.domain.dto.CurrencyDTO;
-import com.travel_agency.domain.dto.weather.WeatherDTO;
 import com.travel_agency.exception.CurrencyNotFoundException;
-import com.travel_agency.exception.LocationNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

@@ -47,7 +47,7 @@ class ReservationServiceTestSuite {
     @Test
     void saveReservation() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash", "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash", "email", 123456, Role.USER);
         Tourist savedTourist = touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city");
@@ -67,7 +67,7 @@ class ReservationServiceTestSuite {
     @Test
     void addTouristsReservation() throws ReservationNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456,Role.USER);
         touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city");
@@ -89,7 +89,7 @@ class ReservationServiceTestSuite {
     @Test
     void getReservationsOfGivenUser() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456,Role.USER);
         Tourist savedTourist = touristRepository.save(tourist);
         Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
@@ -107,7 +107,7 @@ class ReservationServiceTestSuite {
     @Test
     void showReservations() throws TouristNotFoundException, HotelNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456,Role.USER);
         Tourist savedTourist = touristRepository.save(tourist);
         Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
@@ -125,7 +125,7 @@ class ReservationServiceTestSuite {
     @Test
     void deleteReservation() throws TouristNotFoundException, HotelNotFoundException, ReservationNotFoundException {
         // Given
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456,Role.USER);
         Tourist savedTourist = touristRepository.save(tourist);
         Destination destination = new Destination("country", "city");
         Destination savedDestination = destinationRepository.save(destination);
@@ -142,7 +142,7 @@ class ReservationServiceTestSuite {
 
     @Test
     void modifyReservation() throws ReservationNotFoundException {
-        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456);
+        Tourist tourist = new Tourist("tourist", "lastname", LocalDate.now(), "login", "password","passwordHash",  "email", 123456,Role.USER);
         touristRepository.save(tourist);
 
         Destination destination = new Destination("country", "city");
