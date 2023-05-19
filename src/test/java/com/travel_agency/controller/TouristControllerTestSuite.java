@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.travel_agency.domain.Role;
 import com.travel_agency.domain.dto.TouristDTO;
+import com.travel_agency.domain.dto.TouristLoggingDTO;
+import com.travel_agency.exception.TouristNotFoundException;
 import com.travel_agency.service.TouristService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -93,5 +95,18 @@ class TouristControllerTestSuite {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is(200));
+    }
+    @Test
+    void shouldThrowException() throws Exception {
+        // Given
+        String exceptionParam = "dummy";
+        when(touristService.login(new TouristLoggingDTO("login","password"))).thenThrow(TouristNotFoundException.class);
+        // When & Then
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get("/v1/tourists/login", exceptionParam)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isBadRequest());
     }
 }

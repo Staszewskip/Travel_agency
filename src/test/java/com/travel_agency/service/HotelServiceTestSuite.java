@@ -104,4 +104,12 @@ class HotelServiceTestSuite {
         // Then
         assertEquals(updatedName, hotel.getName());
     }
+
+    @Test
+    void createExampleData() {
+        // Given & When
+        hotelService.createExampleData();
+        // Then
+        assertEquals(3, destinationRepository.count());
+    }
 }

@@ -15,3 +15,6 @@ Technologies used:
 - Spring Boot 3.0.6
 - Hibernate
 - Gradle 7.6.1
+
+Tests coverage:
+<img src="META-INF/resources/images/Tests coverage.png">
