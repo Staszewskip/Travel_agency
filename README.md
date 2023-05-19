@@ -17,4 +17,5 @@ Technologies used:
 - Gradle 7.6.1
 
 Tests coverage:
-<img src="META-INF/resources/images/Tests coverage.png">
+
+![image](https://github.com/Staszewskip/Travel_agency/assets/114756001/c49d2e05-8916-4c37-88f3-cad38725b97d)
