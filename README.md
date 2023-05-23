@@ -1,5 +1,5 @@
 # Travel agency backend
-## Frontend available under this [link](https://github.com/Staszewskip/Travel_agency)
+## Frontend available under this [link](https://github.com/Staszewskip/Travel_agency_frontend)
 
 
 How to run application:
