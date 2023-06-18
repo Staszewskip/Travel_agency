@@ -1,10 +1,8 @@
 package com.travel_agency.mapper;
 
 import com.travel_agency.domain.Destination;
-import com.travel_agency.domain.Hotel;
 import com.travel_agency.domain.dto.DestinationDTO;
 import com.travel_agency.domain.dto.get.DestinationDTOGet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
